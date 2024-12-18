@@ -1,5 +1,5 @@
 ﻿@page "/login"
-@using Green_Taxi.Identity
+@using GreenLebanon.Taxi.Web.Identity
 @inject NavigationManager Navigation 
 @inject IAccountManagement AccountManagement
 
@@ -53,13 +53,13 @@
     protected override void OnInitialized() => Model ??= new();
     private async Task Submit() {
         //Sumbit Form logic
-        var result = await AccountManagement.LoginAsync(Model);
-        if ( result.Succeeded ) {
-            Navigation.NavigateTo("/");
-        }
-        else {
-            _errorList = result.ErrorList;
-        }
+        // var result = await AccountManagement.LoginAsync(Model);
+        // if ( result.Succeeded ) {
+        //     Navigation.NavigateTo("/");
+        // }
+        // else {
+        //     _errorList = result.ErrorList;
+        // }
     }
 
 }

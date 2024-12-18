@@ -1,3 +1,5 @@
+using GreenLebanon.Taxi.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace GreenLebanon.Taxi.API
 {
@@ -12,7 +14,8 @@ namespace GreenLebanon.Taxi.API
            
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Configuration.AddJsonFile("appsettings.json", true, true);
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

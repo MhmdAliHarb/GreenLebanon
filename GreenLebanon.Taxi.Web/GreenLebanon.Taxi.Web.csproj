@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Green_Taxi.Taxi.Shared\Green_Taxi.Taxi.Shared.csproj" />
+    <ProjectReference Include="..\GreenLebanon.Taxi.Shared\GreenLebanon.Taxi.Shared.csproj" />
   </ItemGroup>
 
 </Project>
