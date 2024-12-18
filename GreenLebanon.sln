@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Green_Taxi.Taxi.Shared", "Green_Taxi.Taxi.Shared\Green_Taxi.Taxi.Shared.csproj", "{2B1DE405-FD39-475C-B0CE-C07FFE3EC1B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenLebanon.Taxi.API", "GreenLebanon.Taxi.API\GreenLebanon.Taxi.API.csproj", "{CB4DAA73-9690-4157-866C-79AE090BF336}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Green_Taxi", "Green_Taxi\Green_Taxi.csproj", "{3AD21FF3-1F17-410E-857E-A9B31B1F9785}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenLebanon.Taxi.Web", "GreenLebanon.Taxi.Web\GreenLebanon.Taxi.Web.csproj", "{E31EC0B0-E9C3-4BF2-9B64-85D6A74654F9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxiApi", "TaxiApi\TaxiApi.csproj", "{7A7CF8C7-E3D2-4272-B421-CD8F71EEC3FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenLebanon.Taxi.Shared", "GreenLebanon.Taxi.Shared\GreenLebanon.Taxi.Shared.csproj", "{ED4727B5-BF73-4659-AB0E-2461F30FCAE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2B1DE405-FD39-475C-B0CE-C07FFE3EC1B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B1DE405-FD39-475C-B0CE-C07FFE3EC1B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B1DE405-FD39-475C-B0CE-C07FFE3EC1B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B1DE405-FD39-475C-B0CE-C07FFE3EC1B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3AD21FF3-1F17-410E-857E-A9B31B1F9785}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3AD21FF3-1F17-410E-857E-A9B31B1F9785}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3AD21FF3-1F17-410E-857E-A9B31B1F9785}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3AD21FF3-1F17-410E-857E-A9B31B1F9785}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A7CF8C7-E3D2-4272-B421-CD8F71EEC3FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A7CF8C7-E3D2-4272-B421-CD8F71EEC3FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A7CF8C7-E3D2-4272-B421-CD8F71EEC3FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A7CF8C7-E3D2-4272-B421-CD8F71EEC3FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB4DAA73-9690-4157-866C-79AE090BF336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB4DAA73-9690-4157-866C-79AE090BF336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB4DAA73-9690-4157-866C-79AE090BF336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB4DAA73-9690-4157-866C-79AE090BF336}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E31EC0B0-E9C3-4BF2-9B64-85D6A74654F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E31EC0B0-E9C3-4BF2-9B64-85D6A74654F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E31EC0B0-E9C3-4BF2-9B64-85D6A74654F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E31EC0B0-E9C3-4BF2-9B64-85D6A74654F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED4727B5-BF73-4659-AB0E-2461F30FCAE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED4727B5-BF73-4659-AB0E-2461F30FCAE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED4727B5-BF73-4659-AB0E-2461F30FCAE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED4727B5-BF73-4659-AB0E-2461F30FCAE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

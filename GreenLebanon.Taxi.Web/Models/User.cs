@@ -1,4 +1,4 @@
-﻿namespace Green_Taxi.Models {
+﻿namespace GreenLebanon.Taxi.Web.Models {
     public class User {
         public string Email { get; set; } = string.Empty;
         public bool IsEmailConfirmed { get; set; }

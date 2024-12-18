@@ -1,6 +1,6 @@
-﻿using Green_Taxi.Enums;
+﻿using GreenLebanon.Taxi.Web.Enums;
 
-namespace Green_Taxi.Models {
+namespace GreenLebanon.Taxi.Web.Models {
     public class DriverModel {
         public int Id { get; set; }
         public string FirstName { get; set; }

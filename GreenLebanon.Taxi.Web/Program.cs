@@ -1,9 +1,10 @@
-using Green_Taxi.Identity;
+using GreenLebanon.Taxi.Web.Identity;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
-namespace Green_Taxi {
+namespace GreenLebanon.Taxi.Web
+{
     public class Program {
         public static async Task Main( string[] args ) {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);

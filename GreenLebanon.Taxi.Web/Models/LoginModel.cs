@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Green_Taxi.Models {
+namespace GreenLebanon.Taxi.Web.Models {
     public class LoginModel {
         [Required , EmailAddress]
         public string Email { get; set; } = string.Empty;

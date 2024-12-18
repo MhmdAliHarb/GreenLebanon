@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Green_Taxi.Identity {
+namespace GreenLebanon.Taxi.Web.Identity {
 
     public class CookiesAuthenticationStateProvider( IHttpClientFactory httpCLientFactory ) : AuthenticationStateProvider, IAccountManagement {
 

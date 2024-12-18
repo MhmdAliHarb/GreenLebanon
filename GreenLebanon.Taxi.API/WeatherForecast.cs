@@ -1,4 +1,5 @@
-namespace TaxiApi {
+namespace GreenLebanon.Taxi.API
+{
     public class WeatherForecast {
         public DateOnly Date { get; set; }
 

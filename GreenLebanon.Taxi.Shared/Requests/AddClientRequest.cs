@@ -1,20 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
-namespace Green_Taxi.Models {
-    public class ClientModel {
-        public int Id { get; set; }
+namespace GreenLebanon.Taxi.Shared.Requests{
+    public class AddClientRequest {
         [Required]
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
         [Required, Phone]
-        public string PhoneNb { get; set; }
-        public string PlaceOfLiving { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Address { get; set; }
         [Required]
         public DateTime DateOfBirth { get; set; }
-
-        public byte[]? ProfileImage { get; set; }
-
-
     }
 }

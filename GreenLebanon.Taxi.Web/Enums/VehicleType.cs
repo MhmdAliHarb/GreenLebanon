@@ -1,4 +1,4 @@
-﻿namespace Green_Taxi.Enums {
+﻿namespace GreenLebanon.Taxi.Web.Enums {
     public enum VehicleType {
         Car =1, Motorcycle =2
     }
