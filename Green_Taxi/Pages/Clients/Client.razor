@@ -1,0 +1,26 @@
+﻿@page "/client"
+<PageTitle> Home</PageTitle>
+<div class="page-content">
+<div class="profile">
+    <a href="profile" class="btn btn-outline-success" style="width:70px">
+     <i style="font-size:25px" class="bi bi-person"></i>
+    </a>
+    <h4>
+        View Your Profile
+    </h4></div>
+    <div class="content" >
+<h3>Welcome @FirstName to Green Taxi website</h3> 
+
+</div>
+<h6> Your space for having a comfortable, fast, safe, and <span>Eco Friendly </span></h6>
+<div>
+    Tell Us Your Destination To Have a Comfortable Trip
+    <br />
+   
+    <a class="btn btn-success" href="add-trip"> Book a Trip</a>
+</div>
+</div>
+
+@code {
+    private string FirstName = "Ali";
+}

@@ -1,0 +1,52 @@
+﻿@page "/trip-view"
+<PageTitle > Trips </PageTitle>
+<h1> Trips You Can Drive</h1>
+<h1> @style</h1>
+@foreach ( var trip in trips ) {
+    <div class="@style">
+    <div class="content"> 
+        <div>
+    <h3> @trip.Destination </h3>
+    </div>
+    <div>
+    <h5> <span style="color:green"> From </span> @trip.StartingPoint </h5>
+    <h6> By @trip.UserName</h6>
+            </div>
+        </div>
+        <div class="Buttons">
+            <button class="btn btn-success" @onclick="changeStyle"> accept</button>
+            <button class="btn btn-outline-success" style="background-color:white"> reject</button>
+        </div>
+    </div>
+}
+
+@code {
+    private string style="Trip-Card";
+    
+
+  
+    List<TripInfo> trips = new List<TripInfo> {
+       new TripInfo { Destination = "Beirut" , StartingPoint = "Jnoub" , UserName="Ghadi"},
+       new TripInfo { Destination = "Jnoub" , StartingPoint="Tripoli" , UserName = "Ahmadto" },
+       new TripInfo { Destination = "Hamra" , StartingPoint = "Kafaat" , UserName="MhmdAli04"},
+       new TripInfo { Destination = "Hamra" , StartingPoint = "Kafaat" , UserName="MhmdAli04"},
+        new TripInfo { Destination = "Hamra" , StartingPoint = "Kafaat" , UserName="MhmdAli04"},
+      new TripInfo { Destination = "Hamra" , StartingPoint = "Kafaat" , UserName="MhmdAli04"},
+    new TripInfo { Destination = "Hamra" , StartingPoint = "Kafaat" , UserName="MhmdAli04"},
+
+    };
+
+    private void changeStyle() {
+        style = "Trip-Card-Clicked";
+        
+    }
+
+
+
+    public class TripInfo {
+       public string Destination;
+      public  string StartingPoint;
+        public string UserName;
+
+    }
+}

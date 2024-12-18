@@ -1,0 +1,46 @@
+﻿@page "/add-trip"
+<PageTitle> New Trip</PageTitle>
+<h2> Take A New Trip</h2>
+<div class="main flex-row">
+<div  class="row g-3 flex-column">
+        <div class="col-md-3">
+            <label  class="form-label">From:</label>
+            <input type="text" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <label  class="form-label">To:</label>
+            <input type="text" class="form-control" >
+        </div>
+        
+        <div class="col-md-3">
+            <label  class="form-label">Time</label>
+            <input type="time" class="form-control">
+        </div> 
+        <div class="map row-cols-6">
+            <h1> On Map</h1>
+            <div class="map-box">
+            </div>
+        </div>
+    
+        <div class="col-12">
+            <button type="submit" class="btn btn-success" @onclick="OpenDialog">Add Trip</button>
+        </div>
+    </div>
+  
+    </div>
+
+   
+@code {
+    bool ShowDialog = false;
+    private void OpenDialog(){
+        ShowDialog = !ShowDialog;
+    }
+
+}
+<style>
+    .map-box{
+        width: 300px;
+        height: 300px;
+        border: 3px solid black;
+    }
+</style>

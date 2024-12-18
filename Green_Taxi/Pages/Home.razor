@@ -1,0 +1,77 @@
+﻿@page "/"
+@attribute [Authorize]
+@inject NavigationManager NavigationManger
+
+<PageTitle>Home</PageTitle>
+
+
+<div class="container d-flex flex-column justify-content-center align-items-center vh-100 bg-white">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Welcome, @Name!</h1>
+        <div class="lead">
+
+            <h6> Your space for having a comfortable, fast, safe, and <span class="alert-success">Eco Friendly </span> trip.</h6>
+                 <p> 
+                     Tell Us Your Destination To Have a Comfortable Trip
+                 </p>
+
+        </div>
+    </div>
+    <div class="d-flex flex-column gap-3" style="width: 18rem;">
+        <button class="btn btn-Trip btn-lg" @onclick="AddNewTrip"> Get Trip</button>
+        <button class="btn btn-Profile btn-lg" @onclick="ViewProfile">View Your Profile</button>
+        <button class="btn btn-History btn-lg" @onclick="ViewHistory">View Your Previous Trips</button>
+    </div>
+</div>
+
+@code {
+
+    private string Name = "Mhmd Ali";
+
+    private void AddNewTrip()
+    {   
+        NavigationManager.NavigateTo("/add-trip");
+    }
+
+    private void ViewProfile()
+    {
+        NavigationManager.NavigateTo("/profile");
+    }
+
+    private void ViewHistory()
+    {
+        NavigationManager.NavigateTo("/client-history");
+    }
+
+
+    [Inject] private NavigationManager NavigationManager { get; set; }
+}
+
+<style>
+    .vh-100 {
+        height: 100vh;
+    }
+
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 1.25rem;
+        border-radius: 0.5rem;
+    }
+    .btn:hover{
+        color: white;
+        background-color: #00760a;
+    }
+
+    .btn-Trip {
+        background-color: rgb(1, 80, 35,1);
+        color:white;
+    }
+    .btn-Profile{
+        background-color: rgb(1, 51, 35,0.75);
+        color: white;
+    }
+    .btn-History{
+        background-color: rgb(1, 51, 35,0.5);
+        color: white;
+    }
+</style>

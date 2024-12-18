@@ -1,0 +1,96 @@
+﻿<!-- HTML Structure (Blazor Component - Profile.razor with Bootstrap) -->
+@page "/drive-profile"
+
+<div class="container d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card shadow-lg" style="width: 22rem; border-radius: 1rem;">
+        <div class="card-body text-center">
+            <img src="@ProfileImage" alt="Profile Picture" class="rounded-circle border border-info mb-3" style="width: 120px; height: 120px;" />
+            <h2 class="card-title mb-2">@Name</h2>
+            <p class="card-text text-muted mb-1"><i class="bi bi-envelope"></i> @Email</p>
+            <p class="card-text text-muted"><i class="bi bi-telephone"></i> @PhoneNumber</p>
+            <p class="card-text text-muted">@Bio</p>
+            <button class="btn btn-primary mt-3" @onclick="OpenEditProfile">Edit Profile</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Editing Profile -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileLabel">Edit Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="profileName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="profileName" @bind="Name" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="profileEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="profileEmail" @bind="Email" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="profilePhone" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="profilePhone" @bind="PhoneNumber" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="profileBio" class="form-label">Bio</label>
+                        <textarea class="form-control" id="profileBio" rows="3" @bind="Bio"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" @onclick="SaveProfile">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Blazor Code-Behind -->
+@code {
+    // Example profile data
+    private string ProfileImage = "https://via.placeholder.com/150"; // Placeholder image
+    private string Name = "John Doe";
+    private string Email = "johndoe@example.com";
+    private string PhoneNumber = "123-456-7890";
+    private string Bio = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquet...";
+
+    private void OpenEditProfile() {
+        // JavaScript to open the Bootstrap modal
+        JSRuntime.InvokeVoidAsync("bootstrapModal.show", "#editProfileModal");
+    }
+
+    private void SaveProfile() {
+        // Logic to save updated profile details
+        JSRuntime.InvokeVoidAsync("bootstrapModal.hide", "#editProfileModal");
+    }
+
+    [Inject] private IJSRuntime JSRuntime { get; set; }
+}
+
+<!-- External Bootstrap Links -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wh/YWxEY/hs8tdgbEaPrKh5lN6eimVcfGA4kHvDH4lUVls8QR0HEOb8hiWp7MkNJ" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-evrf/sNdrryPA5SLBhNxDEAfJWCC1riUc9FR4NU7cbBUb5tyHvAKKyX1w4SkjxBo" crossorigin="anonymous"></script>
+
+<style>
+    .vh-100 {
+        height: 100vh;
+    }
+
+    .card {
+        border: none;
+    }
+
+    .rounded-circle {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+</style>
