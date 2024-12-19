@@ -18,5 +18,23 @@ namespace GreenLebanon.Taxi.API.Controllers {
             await _context.SaveChangesAsync(); 
             return Ok(new { Message = "Client added successfully", ClientId = _client.Id });
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateClient( int id, [FromBody] UpdateClientRequest request ) {
+            if ( request == null || !ModelState.IsValid ) {
+                return BadRequest("Invalid client data.");
+            }
+
+            var client = _context.Clients.FirstOrDefault(c => c.Id == id);
+            if ( client == null ) {
+                return NotFound("Client not found.");
+            }
+
+            _context.Clients.Update(client);
+            _context.SaveChanges();
+
+            return Ok(new { message = "Client updated successfully", client });
+        }
     }
 }
+

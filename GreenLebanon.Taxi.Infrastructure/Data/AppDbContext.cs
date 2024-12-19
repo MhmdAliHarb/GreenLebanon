@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GreenLebanon.Taxi.ApplicationCore.Entities;
 
 namespace GreenLebanon.Taxi.Infrastructure.Data
 {
@@ -17,7 +18,10 @@ namespace GreenLebanon.Taxi.Infrastructure.Data
         {
             
         }
-        public DbSet<ApplicationCore.Entities.Client> Clients { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Driver> Drivers { get; set; }
+        public DbSet<Trip> Tips { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 

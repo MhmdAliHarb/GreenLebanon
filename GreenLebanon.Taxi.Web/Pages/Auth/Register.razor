@@ -54,13 +54,13 @@
     protected override void OnInitialized() => Model ??= new();
     private async Task Submit() {
         //Sumbit Form logic
-        //var result = await AccountManagement.RegisterAsync(Model.Email, Model.Password);
-        // if ( result.Succeeded ) {
-        //     Navigation.NavigateTo("login");
-        // }
-        // else {
-        //     _errorList = result.ErrorList;
-        // }
+        var result = await AccountManagement.RegisterAsync(Model.Email, Model.Password);
+        if ( result.Succeeded ) {
+            Navigation.NavigateTo("login");
+        }
+        else {
+            _errorList = result.ErrorList;
+        }
     }
 
 }

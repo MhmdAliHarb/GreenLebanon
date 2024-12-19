@@ -11,4 +11,8 @@ namespace GreenLebanon.Taxi.Shared.Requests{
         [Required]
         public DateTime DateOfBirth { get; set; }
     }
+
+    public class UpdateClientRequest {
+
+    }
 }

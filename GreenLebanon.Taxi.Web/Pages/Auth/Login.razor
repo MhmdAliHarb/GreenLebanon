@@ -53,13 +53,13 @@
     protected override void OnInitialized() => Model ??= new();
     private async Task Submit() {
         
-        // var result = await AccountManagement.LoginAsync(Model);
-        // if ( result.Succeeded ) {
-        //     Navigation.NavigateTo("/");
-        // }
-        // else {
-        //     _errorList = result.ErrorList;
-        // }
+        var result = await AccountManagement.LoginAsync(Model);
+        if ( result.Succeeded ) {
+            Navigation.NavigateTo("/");
+        }
+        else {
+            _errorList = result.ErrorList;
+        }
     }
 
 }
