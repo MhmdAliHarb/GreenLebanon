@@ -1,5 +1,7 @@
-using GreenLebanon.Taxi.API.Data;
+using GreenLebanon.Taxi.Application.Services;
+using GreenLebanon.Taxi.ApplicationCore.Repositories;
 using GreenLebanon.Taxi.Infrastructure.Data;
+using GreenLebanon.Taxi.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +13,9 @@ namespace GreenLebanon.Taxi.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddScoped<IClientRepository, ClientRepository>();
+            builder.Services.AddScoped<ClientService>();
+            builder.Services.AddScoped<AppDbContext>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenLebanon.Taxi.Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenLebanon.Taxi.ApplicationCore", "GreenLebanon.Taxi.ApplicationCore\GreenLebanon.Taxi.ApplicationCore.csproj", "{260C9299-1F1C-45A7-AD8B-3725C7E437B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenLebanon.Taxi.Application", "GreenLebanon.Taxi.Application\GreenLebanon.Taxi.Application.csproj", "{9645A4AC-B364-4BE2-844E-11293CA627EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{260C9299-1F1C-45A7-AD8B-3725C7E437B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{260C9299-1F1C-45A7-AD8B-3725C7E437B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{260C9299-1F1C-45A7-AD8B-3725C7E437B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9645A4AC-B364-4BE2-844E-11293CA627EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9645A4AC-B364-4BE2-844E-11293CA627EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9645A4AC-B364-4BE2-844E-11293CA627EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9645A4AC-B364-4BE2-844E-11293CA627EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,6 +8,7 @@ namespace GreenLebanon.Taxi.API.Controllers {
     [Route("api/[controller]")]
     public class DriversController( AppDbContext context ) : ControllerBase {
         private readonly AppDbContext _context = context;
+
         [HttpPost]
         public async Task<IActionResult> AddDriver( [FromBody] AddClientRequest request ) {
             if ( !ModelState.IsValid ) {

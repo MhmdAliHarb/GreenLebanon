@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GreenLebanon.Taxi.Infrastructure.Data
 {
-    class AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : IdentityDbContext <IdentityUser> (options)
+    public class AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : IdentityDbContext <IdentityUser> (options)
     {
         public DbSet<Client> clients { get; set; }
     }

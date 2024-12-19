@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="MappingProfiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GreenLebanon.Taxi.ApplicationCore\GreenLebanon.Taxi.ApplicationCore.csproj" />
+    <ProjectReference Include="..\GreenLebanon.Taxi.Shared\GreenLebanon.Taxi.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
