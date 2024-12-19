@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenLebanon.Taxi.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenLebanon.Taxi.Application", "GreenLebanon.Taxi.Application\GreenLebanon.Taxi.Application.csproj", "{9645A4AC-B364-4BE2-844E-11293CA627EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenLebanon.Taxi.Web.Infrastructure", "GreenLebanon.Taxi.Web.Infrastructure\GreenLebanon.Taxi.Web.Infrastructure.csproj", "{AFA03FA4-DCA4-4B23-9EEF-D89E3E006E44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenLebanon.Taxi.Web.Infrastructure", "GreenLebanon.Taxi.Web.Infrastructure\GreenLebanon.Taxi.Web.Infrastructure.csproj", "{AFA03FA4-DCA4-4B23-9EEF-D89E3E006E44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenLebanon.Taxi.Web.Application", "GreenLebanon.Taxi.Web.Application\GreenLebanon.Taxi.Web.Application.csproj", "{B075E7C2-0092-4E97-8100-29FC5A648738}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenLebanon.Taxi.Web.Application", "GreenLebanon.Taxi.Web.Application\GreenLebanon.Taxi.Web.Application.csproj", "{B075E7C2-0092-4E97-8100-29FC5A648738}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

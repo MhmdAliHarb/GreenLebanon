@@ -1,0 +1,15 @@
+﻿@inject NavigationManager Navigation
+div class="confirm-dialog-content">
+    <div class="confirm-dialog">
+        <h3> Trip Was Added Successfully </h3>
+        <div class="d-flex flex-row  justify-content-end mt-3">
+            <button class="btn btn-success ms-3" @onclick="OnAccept">Ok</button>
+        </div>
+    </div>
+
+
+@code {
+    private void OnAccept() {
+        Navigation.NavigateTo("/");
+    }
+}

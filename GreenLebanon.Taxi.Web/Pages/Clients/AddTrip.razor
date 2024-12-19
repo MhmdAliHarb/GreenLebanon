@@ -1,46 +1,65 @@
 ﻿@page "/add-trip"
 <PageTitle> New Trip</PageTitle>
-<h2> Take A New Trip</h2>
-<div class="main flex-row">
-<div  class="row g-3 flex-column">
-        <div class="col-md-3">
-            <label  class="form-label">From:</label>
-            <input type="text" class="form-control">
+<div class="container mt-3 vh-75">
+    <div class="card shadow-lg">
+        <div class="card-header bg-special text-white">
+            <h4 class="mb-0">Add New Trip</h4>
         </div>
-        <div class="col-md-3">
-            <label  class="form-label">To:</label>
-            <input type="text" class="form-control" >
-        </div>
-        
-        <div class="col-md-3">
-            <label  class="form-label">Time</label>
-            <input type="time" class="form-control">
-        </div> 
-        <div class="map row-cols-6">
-            <h1> On Map</h1>
-            <div class="map-box">
-            </div>
-        </div>
-    
-        <div class="col-12">
-            <button type="submit" class="btn btn-success" @onclick="OpenDialog">Add Trip</button>
+        <div class="card-body">
+            <form>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="fromLocation" class="form-label">From</label>
+                        <input type="text" id="fromLocation" class="form-control" placeholder="Enter starting location" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="toLocation" class="form-label">To</label>
+                        <input type="text" id="toLocation" class="form-control" placeholder="Enter destination" />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="tripTime" class="form-label">Time</label>
+                    <input type="datetime-local" id="tripTime" class="form-control" />
+                </div>
+                <div>
+                <div class="mb-3 text-center">
+                    <button type="button" class="btn btn-secondary" @onclick="AddPointsOnMap">Use Maps</button>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn bg-special">Submit</button>
+                </div></div>
+            </form>
         </div>
     </div>
-  
-    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 600px;
+    }
+
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
 
    
-@code {
-    bool ShowDialog = false;
-    private void OpenDialog(){
-        ShowDialog = !ShowDialog;
+    .bg-special{
+        background-color: #015023;
+        color: white;
     }
 
-}
-<style>
-    .map-box{
-        width: 300px;
-        height: 300px;
-        border: 3px solid black;
+    .btn-secondary {
+        margin-right: 10px;
     }
 </style>
+
+@code {
+    private void AddPointsOnMap() {
+        // Logic to add points on Google Maps
+    }
+}

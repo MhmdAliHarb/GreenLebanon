@@ -1,4 +1,94 @@
 ﻿@page "/client-history"
+<!-- ShowTrips.razor -->
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-special text-center text-white">
+            <h4 class="mb-0">Your History</h4>
+        </div>
+        <div class="card-body">
+            @if ( trips == null ) {
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            }
+            else if ( trips.Any() ) {
+                <table class="table table-striped table-hover">
+                    <thead class="table-sm">
+                        <tr>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Time</th>
+                            <th>Driver Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ( var trip in trips ) {
+                            <tr>
+                                <td>@trip.From</td>
+                                <td>@trip.To</td>
+                                <td>@trip.Time.ToString("f")</td>
+                                <td>@trip.DriverName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else {
+                <div class="alert alert-warning text-center" role="alert">
+                    No trips available.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 900px;
+    }
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .bg-special {
+        background-color: #015023;
+        color: white;
+    }
+
+    .table {
+        margin-bottom: 0;
+    }
+</style>
 
 @code {
+    private List<Trip> trips;
+
+    protected override async Task OnInitializedAsync() {
+        trips = await GetTripsAsync();
+    }
+
+    private async Task<List<Trip>> GetTripsAsync() {
+        // Simulate fetching trips from an API or database
+        await Task.Delay(1000); // Simulated delay
+
+        return new List<Trip>
+            {
+            new Trip { From = "Location A", To = "Location B", Time = DateTime.Now, DriverName = "John Doe" },
+            new Trip { From = "Location C", To = "Location D", Time = DateTime.Now.AddHours(-40), DriverName = "Hussein Zaayter" },
+             new Trip { From = "Location E", To = "Location F", Time = DateTime.Now.AddHours(-10), DriverName = "Ali Mtayrek" },
+              new Trip { From = "Location G", To = "Location H", Time = DateTime.Now.AddHours(25), DriverName = "Youssef Soufan" },
+             new Trip { From = "Location I", To = "Location J", Time = DateTime.Now.AddHours(1), DriverName = "Bashar Al Asad" }
+        };
+    }
+
+    public class Trip {
+        public string From { get; set; }
+        public string To { get; set; }
+        public DateTime Time { get; set; }
+        public string DriverName { get; set; }
+    }
 }
+

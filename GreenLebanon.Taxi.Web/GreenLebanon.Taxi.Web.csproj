@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GreenLebanon.Taxi.ApplicationCore\GreenLebanon.Taxi.ApplicationCore.csproj" />
     <ProjectReference Include="..\GreenLebanon.Taxi.Shared\GreenLebanon.Taxi.Shared.csproj" />
     <ProjectReference Include="..\GreenLebanon.Taxi.Web.Application\GreenLebanon.Taxi.Web.Application.csproj" />
     <ProjectReference Include="..\GreenLebanon.Taxi.Web.Infrastructure\GreenLebanon.Taxi.Web.Infrastructure.csproj" />
