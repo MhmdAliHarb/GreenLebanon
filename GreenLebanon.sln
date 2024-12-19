@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenLebanon.Taxi.Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenLebanon.Taxi.ApplicationCore", "GreenLebanon.Taxi.ApplicationCore\GreenLebanon.Taxi.ApplicationCore.csproj", "{260C9299-1F1C-45A7-AD8B-3725C7E437B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenLebanon.Taxi.Application", "GreenLebanon.Taxi.Application\GreenLebanon.Taxi.Application.csproj", "{9645A4AC-B364-4BE2-844E-11293CA627EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenLebanon.Taxi.Application", "GreenLebanon.Taxi.Application\GreenLebanon.Taxi.Application.csproj", "{9645A4AC-B364-4BE2-844E-11293CA627EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenLebanon.Taxi.Web.Infrastructure", "GreenLebanon.Taxi.Web.Infrastructure\GreenLebanon.Taxi.Web.Infrastructure.csproj", "{AFA03FA4-DCA4-4B23-9EEF-D89E3E006E44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenLebanon.Taxi.Web.Application", "GreenLebanon.Taxi.Web.Application\GreenLebanon.Taxi.Web.Application.csproj", "{B075E7C2-0092-4E97-8100-29FC5A648738}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{9645A4AC-B364-4BE2-844E-11293CA627EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9645A4AC-B364-4BE2-844E-11293CA627EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9645A4AC-B364-4BE2-844E-11293CA627EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA03FA4-DCA4-4B23-9EEF-D89E3E006E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA03FA4-DCA4-4B23-9EEF-D89E3E006E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA03FA4-DCA4-4B23-9EEF-D89E3E006E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA03FA4-DCA4-4B23-9EEF-D89E3E006E44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B075E7C2-0092-4E97-8100-29FC5A648738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B075E7C2-0092-4E97-8100-29FC5A648738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B075E7C2-0092-4E97-8100-29FC5A648738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B075E7C2-0092-4E97-8100-29FC5A648738}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
