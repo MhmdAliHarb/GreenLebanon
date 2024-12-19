@@ -1,6 +1,0 @@
-@GreenLebanon.Taxi.API_HostAddress = http://localhost:5034
-
-GET {{GreenLebanon.Taxi.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

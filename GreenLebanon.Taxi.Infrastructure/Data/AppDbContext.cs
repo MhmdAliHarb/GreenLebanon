@@ -23,7 +23,7 @@ namespace GreenLebanon.Taxi.Infrastructure.Data
 
         {
 
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-D4GC2UT;Initial Catalog=GreenLebanon;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+            optionsBuilder.UseSqlServer("");
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

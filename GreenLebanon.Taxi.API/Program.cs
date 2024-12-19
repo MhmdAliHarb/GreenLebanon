@@ -1,5 +1,8 @@
+using GreenLebanon.Taxi.API.Data;
 using GreenLebanon.Taxi.Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace GreenLebanon.Taxi.API
 {
@@ -11,11 +14,30 @@ namespace GreenLebanon.Taxi.API
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-           
-            builder.Services.AddEndpointsApiExplorer();
+ 
             builder.Services.AddSwaggerGen();
+            builder.Services.AddEndpointsApiExplorer();
             builder.Configuration.AddJsonFile("appsettings.json", true, true);
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+            
+            builder.Services.AddDbContext<AppIdentityDbContext>(options => 
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+             builder.Services
+               .AddIdentityApiEndpoints<IdentityUser>()
+               .AddEntityFrameworkStores<AppIdentityDbContext>();
+
+            builder.Services.AddCors(options =>
+                 options.AddDefaultPolicy(builder =>
+                        builder
+                       .AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .WithOrigins("https://localhost:7241")
+                       .AllowCredentials()
+           )
+          );
+
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -27,14 +49,15 @@ namespace GreenLebanon.Taxi.API
 
                 });
             }
-
+            app.UseCors();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
-
+            app.MapIdentityApi<IdentityUser>();
             app.MapControllers();
-
+            app.UseRouting();
+           
             app.Run();
         }
     }
