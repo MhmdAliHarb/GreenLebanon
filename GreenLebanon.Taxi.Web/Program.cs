@@ -18,6 +18,11 @@ namespace GreenLebanon.Taxi.Web
             {
                 client.BaseAddress = new Uri("https://localhost:7241/");
             });
+            builder.Services.AddScoped<ITripGateway, TripGateway>();
+            builder.Services.AddHttpClient<ITripGateway, TripGateway>(trip =>
+            {
+                trip.BaseAddress = new Uri("https://localhost:7241/");
+            });
             builder.Services.AddTransient<CookieHandler>();
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
            builder.Services.AddScoped(sp => (IAccountManagement)sp.GetRequiredService<AuthenticationStateProvider>());

@@ -1,0 +1,70 @@
+﻿@page "/add-photo"
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-special text-white">
+            <h5 class="card-title mb-0">Add Photo</h5>
+        </div>
+        <div class="card-body">
+            <div class="upload-placeholder bg-light text-center border rounded p-5"  style="cursor: pointer;">
+                <p class="text-muted">Click to upload an image</p>
+            </div>
+            <InputFile class="d-none" @ref="fileInput" />
+            <EditForm Model="photoModel" OnValidSubmit="SubmitPhoto">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="mb-3">
+                    <label for="photo-caption" class="form-label">Caption</label>
+                    <InputText id="photo-caption" class="form-control" @bind-Value="photoModel.Caption" placeholder="Add a caption for your photo" />
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn bg-special">Submit</button>
+                </div>
+            </EditForm>
+        </div>
+        @if (photoPreviewVisible)
+        {
+            <div class="card-footer text-center bg-light">
+                <img src="@photoModel.ImageData" class="img-thumbnail" style="max-width: 300px;" />
+                <p class="mt-2">@photoModel.Caption</p>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private InputFile fileInput;
+    private PhotoModel photoModel = new PhotoModel();
+    private bool photoPreviewVisible;
+
+    // async Task OnFileSelected(InputFileChangeEventArgs e)
+    // {
+    //     var file = e.File;
+    //     var buffer = new byte[file.Size];
+
+    //     await;
+    //     photoModel.ImageData = $"data:{file.ContentType};base64,{Convert.ToBase64String(buffer)}";
+    //     photoPreviewVisible = true;
+    // }
+
+    private Task SubmitPhoto()
+    {
+        // Submit photoModel to a service or API
+        Console.WriteLine($"Caption: {photoModel.Caption}");
+        Console.WriteLine("Image Data Length: " + (photoModel.ImageData?.Length ?? 0));
+        return Task.CompletedTask;
+    }
+
+    private class PhotoModel
+    {
+        public string Caption { get; set; } = string.Empty;
+        public string ImageData { get; set; } = string.Empty;
+    }
+}
+<style>
+    .card{
+        min-width: 100px;
+        min-height : 100px;
+    }
+</style>

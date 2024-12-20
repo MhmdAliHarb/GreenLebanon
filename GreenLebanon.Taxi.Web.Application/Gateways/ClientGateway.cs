@@ -18,5 +18,6 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
 
             return int.Parse(await result.Content.ReadAsStringAsync());
         }
+        
     }
 }

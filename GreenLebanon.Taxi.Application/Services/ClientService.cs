@@ -13,6 +13,10 @@ namespace GreenLebanon.Taxi.Application.Services
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
+                PhoneNumber = request.PhoneNumber,
+                Address = request.Address,
+
+                
             });
         }
     }

@@ -4,24 +4,22 @@ using GreenLebanon.Taxi.Infrastructure.Data;
 
 namespace GreenLebanon.Taxi.Infrastructure.Repositories
 {
-    public class ClientRepository : IClientRepository
+    class TripRepository : ITripRepository
     {
         private readonly AppDbContext appDbContext;
 
-        public ClientRepository( AppDbContext appDbContext )
+        public TripRepository( AppDbContext appDbContext )
         {
             this.appDbContext = appDbContext;
         }
-
-        public async Task<int> AddClientAsync( Client client )
+        public async Task<int> AddTripAsync( Trip trip )
         {
-            appDbContext.Clients.Add(client);
+            appDbContext.Trips.Add(trip);
             return await appDbContext.SaveChangesAsync();
         }
-
-        public async Task<IQueryable<Client>> GetAllClientsAsync( int? clientId = null )
+        public async Task<IQueryable<Trip>> GetAllTripsAsync( int? tripId = null )
         {
-            return appDbContext.Clients.Where(x => clientId.HasValue && x.Id == clientId.Value);
+            return appDbContext.Trips.Where(x => tripId.HasValue && x.Id == tripId.Value);
         }
     }
 }

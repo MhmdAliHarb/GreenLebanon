@@ -20,7 +20,7 @@ namespace GreenLebanon.Taxi.Infrastructure.Data
         }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Driver> Drivers { get; set; }
-        public DbSet<Trip> Tips { get; set; }
+        public DbSet<Trip> Trips { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

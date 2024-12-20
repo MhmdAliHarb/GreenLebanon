@@ -3,35 +3,72 @@
 @using GreenLebanon.Taxi.Web.Infrastructure.Gateways
 
 @inject IClientGateway ClientGateway
+@inject NavigationManager Navigation
 
 <PageTitle> Home</PageTitle>
-<div class="page-content">
-    <div class="profile">
-        <a href="profile" class="btn btn-outline-success" style="width:70px">
-            <i style="font-size:25px" class="bi bi-person"></i>
-        </a>
-        <h4>
-            View Your Profile
-        </h4>
-    </div>
-    <div class="content">
-        <h3>Welcome @FirstName to Green Taxi website</h3>
+    <div class=" container mt-3 vh-75">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-special text-center text-white">
+                <h4 class="mb-0 "> Create New Account </h4>
+            </div>
+            <div class="card-body">
+                <EditForm Model="request" OnValidSubmit="submit">
+                    <div class="row mb-3 justify-content-around " >
+                        <div class="col-md-5 p-1 form-floating">
+                         <InputText id="firstName" @bind-Value="request.FirstName" class="form-control" placeholder=""/>
+                        <label for="firstName" class="form-label"> First Name</label>
+                    </div>
+                    <div class="form-floating p-1 col-md-5">
+                        <InputText id="lastName" @bind-Value="request.LastName" class="form-control" placeholder=""/>
+                        <label for="lastName" class="form-label"> Last Name</label>
+                    </div>
+                    <div class="form-floating p-1 col-md-5">
+                        <InputText @bind-Value="request.PhoneNumber" id = "phoneNumber"class="form-control" placeholder=""/>
+                        <label for="phoneNumber" class="form-label"> Phone Number</label>
+                    </div>
+                    <div class="form-floating p-1 col-md-5">
+                        <InputDate @bind-Value="request.DateOfBirth" id="dob" class="form-control" placeholder="" />
+                        <label for="dob" class="form-label"> Date Of Birth</label>
+                    </div>
+                    <div class="form-floating p-1 col-md-11">
+                        <InputText @bind-Value="request.Address" id = "address"class="form-control" placeholder=""/>
+                        <label for="address" class="form-label"> Address</label>
+                    </div>
+                    <div class="text-center ">
+                        <button class="btn bg-special  col-3">Submit</button>
+                    </div>
+                    
+                    <!--row--></div>
+                </EditForm>
 
+            </div>
+        </div>
     </div>
-    <h6> Your space for having a comfortable, fast, safe, and <span>Eco Friendly </span></h6>
-    <div>
-        Tell Us Your Destination To Have a Comfortable Trip
-        <br />
-
-        <a class="btn btn-success" href="add-trip"> Book a Trip</a>
-    </div>
-</div>
-
+   
 @code {
-    private string FirstName = "Ali";
+    private AddClientRequest? request ;
+
+    protected override void OnInitialized() => request ??= new();
 
     private async Task SaveClientAsync(AddClientRequest addClientRequest)
     {
         await ClientGateway.AddNewClientAsync(addClientRequest, CancellationToken.None);
     }
+    private async Task submit() {
+         await SaveClientAsync(request); 
+        Navigation.NavigateTo("add-picture");
+    }
 }
+<style>
+    .card{
+        border-radius:10px;
+        overflow:hidden;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+    .form-floating{
+        margin-bottom: 10px;
+    }
+</style>

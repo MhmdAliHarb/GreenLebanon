@@ -56,7 +56,7 @@
         //Sumbit Form logic
         var result = await AccountManagement.RegisterAsync(Model.Email, Model.Password);
         if ( result.Succeeded ) {
-            Navigation.NavigateTo("login");
+            Navigation.NavigateTo("add-client");
         }
         else {
             _errorList = result.ErrorList;
