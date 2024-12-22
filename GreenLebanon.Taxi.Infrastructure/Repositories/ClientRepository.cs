@@ -21,7 +21,12 @@ namespace GreenLebanon.Taxi.Infrastructure.Repositories
 
         public async Task<IQueryable<Client>> GetAllClientsAsync( int? clientId = null )
         {
-            return appDbContext.Clients.Where(x => clientId.HasValue && x.Id == clientId.Value);
+            if ( clientId.HasValue )
+            {
+                appDbContext.Clients.Where(x => clientId.HasValue && x.Id == clientId.Value);
+            }
+            return appDbContext.Clients.AsQueryable();
         }
+      
     }
 }

@@ -17,5 +17,7 @@ namespace GreenLebanon.Taxi.ApplicationCore.Entities
         public DateTime DateOfBirth { get; set; }
         public byte[]? ProfileImage { get; set; }
 
+        public ICollection<Trip> OrderedTrips { get; set; }
+
     }
 }

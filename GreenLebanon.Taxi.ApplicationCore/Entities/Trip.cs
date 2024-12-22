@@ -11,5 +11,11 @@ namespace GreenLebanon.Taxi.ApplicationCore.Entities {
         public string Destination { get; set; }
         public string Region { get; set; }
         public TimeOnly Timing {  get; set; } 
+
+        public int ClientId { get; set; }
+        public Client Client { get; set; }
+
+        public int DriverId { get; set; }
+        public Driver Driver { get; set; }
     }
 }

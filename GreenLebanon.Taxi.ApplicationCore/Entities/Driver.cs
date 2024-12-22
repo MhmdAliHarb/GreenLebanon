@@ -13,6 +13,8 @@ namespace GreenLebanon.Taxi.ApplicationCore.Entities
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
 
+        public ICollection<Trip> Trips { get; set; }
+
 
     }
 }

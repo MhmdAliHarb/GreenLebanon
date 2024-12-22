@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace GreenLebanon.Taxi.ApplicationCore.Repositories
 {
-   public interface ITripRepository
+    public interface IDriverRepository
     {
-        Task<int> AddTripAsync( Trip trip );
-        Task<IQueryable<Trip>> GetAllTripsAsync(int? TripId = null);
-        
+        Task<int> AddDriverAsync( Driver driver );
+        Task<IQueryable<Driver>> GetAllDriversAsync(int? DriverId = null);
     }
 }

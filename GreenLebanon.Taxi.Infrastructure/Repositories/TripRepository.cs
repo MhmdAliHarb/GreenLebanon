@@ -17,9 +17,16 @@ namespace GreenLebanon.Taxi.Infrastructure.Repositories
             appDbContext.Trips.Add(trip);
             return await appDbContext.SaveChangesAsync();
         }
+
         public async Task<IQueryable<Trip>> GetAllTripsAsync( int? tripId = null )
         {
-            return appDbContext.Trips.Where(x => tripId.HasValue && x.Id == tripId.Value);
+            if ( tripId.HasValue )
+            {
+                return appDbContext.Trips.Where(x => tripId.HasValue && x.Id == tripId.Value);
+            }
+            return appDbContext.Trips.AsQueryable();
         }
+
+       
     }
 }

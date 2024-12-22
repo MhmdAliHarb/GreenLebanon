@@ -1,13 +1,14 @@
-﻿using GreenLebanon.Taxi.ApplicationCore.Repositories;
+﻿using GreenLebanon.Taxi.ApplicationCore.Entities;
+using GreenLebanon.Taxi.ApplicationCore.Repositories;
 using GreenLebanon.Taxi.Shared.Requests;
 
 namespace GreenLebanon.Taxi.Application.Services
 {
-    public class ClientService(IClientRepository clientRepository)
+    public class ClientService( IClientRepository clientRepository )
     {
         private readonly IClientRepository clientRepository = clientRepository;
 
-        public async Task<int> AddNewClientAsync(AddClientRequest request)
+        public async Task<int> AddNewClientAsync( AddClientRequest request )
         {
             return await clientRepository.AddClientAsync(new ApplicationCore.Entities.Client()
             {
@@ -16,8 +17,14 @@ namespace GreenLebanon.Taxi.Application.Services
                 PhoneNumber = request.PhoneNumber,
                 Address = request.Address,
 
-                
+
             });
         }
+
+        public async Task<IQueryable<Client>> GetAllClientsAsync()
+        {
+            return await clientRepository.GetAllClientsAsync();
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using GreenLebanon.Taxi.Shared.Requests;
+﻿using GreenLebanon.Taxi.ApplicationCore.Entities;
+using GreenLebanon.Taxi.Shared.Requests;
 using GreenLebanon.Taxi.Web.Infrastructure.Gateways;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,13 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
         {
             this.httpClient = client;
         }
-        async Task<int> ITripGateway.AddNewTripAsync( AddTripRequest request, CancellationToken cancellationToken )
+         async Task<int> ITripGateway.AddNewTripAsync( AddTripRequest request, CancellationToken cancellationToken )
         {
            var result = await httpClient.PostAsJsonAsync<AddTripRequest>("api/Trips", request, cancellationToken);
 
             return int.Parse(await result.Content.ReadAsStringAsync());
         }
+
+       
     }
 }

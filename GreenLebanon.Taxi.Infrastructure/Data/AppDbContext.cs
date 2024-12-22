@@ -32,6 +32,16 @@ namespace GreenLebanon.Taxi.Infrastructure.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Client>()
+                .HasMany(c => c.OrderedTrips)
+                .WithOne(t => t.Client)
+                .HasForeignKey(t => t.ClientId);
+
+           modelBuilder.Entity<Driver>()
+               .HasMany(d => d.Trips)
+               .WithOne(t => t.Driver)
+               .HasForeignKey(t => t.DriverId);
         }
     }
 }

@@ -1,16 +1,13 @@
-﻿using GreenLebanon.Taxi.ApplicationCore.Repositories;
+﻿using GreenLebanon.Taxi.ApplicationCore.Entities;
+using GreenLebanon.Taxi.ApplicationCore.Repositories;
 using GreenLebanon.Taxi.Shared.Requests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace GreenLebanon.Taxi.Application.Services
 {
     public class TripService( ITripRepository tripRepository )
     {
+
         private readonly ITripRepository tripRepository = tripRepository;
 
         public async Task<int> AddNewTripAsync( AddTripRequest request )
@@ -23,5 +20,11 @@ namespace GreenLebanon.Taxi.Application.Services
                 Timing = request.Timing
             });
         }
+        public async Task<IQueryable<Trip>> GetAllTripsAsync( int? TripId = null )
+        {
+            return await tripRepository.GetAllTripsAsync(TripId);
+        }
+
+
     }
 }
