@@ -6,35 +6,39 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4">Drivers</h2>
 
-    @if ( Drivers == null ) {
+    @if (Drivers == null)
+    {
         <div class="text-center">
             <button class="btn btn-primary" disabled>Loading Drivers...</button>
         </div>
     }
-    else if ( !Drivers.Any() ) {
+    else if (!Drivers.Any())
+    {
         <div class="alert alert-warning text-center" role="alert">
             No drivers registered yet.
         </div>
     }
-    else {
+    else
+    {
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th scope="col">First</th>
                     <th scope="col">Last</th>
                     <th scope="col">Phone Number</th>
-                  
+
                 </tr>
             </thead>
             <tbody>
-                @foreach ( var driver in Drivers ) {
+                @foreach (var driver in Drivers)
+                {
                     <tr>
-                        <td>@driver.FirstName</td>
-                        <td>@driver.LastName</td>
-                    
+                        <td>@driver.ApplicationUser.FirstName</td>
+                        <td>@driver.ApplicationUser.LastName</td>
+
                         <td>
-                            <button class="btn btn-success me-2" >Accept</button>
-                            <button class="btn btn-danger" >Delete</button>
+                            <button class="btn btn-success me-2">Accept</button>
+                            <button class="btn btn-danger">Delete</button>
                         </td>
                     </tr>
                 }
@@ -46,16 +50,18 @@
 @code {
     private List<Driver> Drivers;
 
-   
 
-    private async Task AcceptDriver( int tripId ) {
+
+    private async Task AcceptDriver(int tripId)
+    {
         // Logic to accept the trip
-       // Reload trips after action
+        // Reload trips after action
     }
 
-    private async Task DeleteDriver( int tripId ) {
+    private async Task DeleteDriver(int tripId)
+    {
         // Logic to delete the trip
-     // Reload trips after action
+        // Reload trips after action
     }
 }
 

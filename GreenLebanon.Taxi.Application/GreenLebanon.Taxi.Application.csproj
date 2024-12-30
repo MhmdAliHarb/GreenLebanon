@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GreenLebanon.Taxi.ApplicationCore\GreenLebanon.Taxi.ApplicationCore.csproj" />
     <ProjectReference Include="..\GreenLebanon.Taxi.Infrastructure\GreenLebanon.Taxi.Infrastructure.csproj" />
     <ProjectReference Include="..\GreenLebanon.Taxi.Shared\GreenLebanon.Taxi.Shared.csproj" />

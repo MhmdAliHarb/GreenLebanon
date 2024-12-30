@@ -13,22 +13,22 @@ namespace GreenLebanon.Taxi.Infrastructure.Repositories
     {
         private readonly AppDbContext appDbContext;
 
-        public DriverRepository(AppDbContext appDbContext )
+        public DriverRepository(AppDbContext appDbContext)
         {
             this.appDbContext = appDbContext;
         }
 
-        async Task<int> IDriverRepository.AddDriverAsync( Driver driver )
+        public async Task<int> AddDriverAsync(Driver driver)
         {
             appDbContext.Drivers.Add(driver);
             return await appDbContext.SaveChangesAsync();
         }
 
-        async Task<IQueryable<Driver>> IDriverRepository.GetAllDriversAsync( int? DriverId )
+        public async Task<IQueryable<Driver>> GetAllDriversAsync(string driverId = null)
         {
-            if ( DriverId.HasValue )
+            if (!string.IsNullOrEmpty(driverId))
             {
-                appDbContext.Drivers.Where(x => DriverId.HasValue && x.Id == DriverId.Value);
+                appDbContext.Drivers.Where(x => x.ApplicationUserId == driverId);
             }
             return appDbContext.Drivers.AsQueryable();
         }

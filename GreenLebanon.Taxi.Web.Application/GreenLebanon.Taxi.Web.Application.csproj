@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GreenLebanon.Taxi.Shared\GreenLebanon.Taxi.Shared.csproj" />
     <ProjectReference Include="..\GreenLebanon.Taxi.Web.Infrastructure\GreenLebanon.Taxi.Web.Infrastructure.csproj" />
   </ItemGroup>

@@ -8,25 +8,26 @@ namespace GreenLebanon.Taxi.Infrastructure.Repositories
     {
         private readonly AppDbContext appDbContext;
 
-        public ClientRepository( AppDbContext appDbContext )
+        public ClientRepository(AppDbContext appDbContext)
         {
             this.appDbContext = appDbContext;
         }
 
-        public async Task<int> AddClientAsync( Client client )
+        public async Task<int> AddClientAsync(Client client)
         {
             appDbContext.Clients.Add(client);
             return await appDbContext.SaveChangesAsync();
         }
 
-        public async Task<IQueryable<Client>> GetAllClientsAsync( int? clientId = null )
+        public async Task<IQueryable<Client>> GetAllClientsAsync(string clientId = null)
         {
-            if ( clientId.HasValue )
+            if (!string.IsNullOrEmpty(clientId))
             {
-                appDbContext.Clients.Where(x => clientId.HasValue && x.Id == clientId.Value);
+                appDbContext.Clients.Where(x => x.ApplicationUserId == clientId);
             }
+
             return appDbContext.Clients.AsQueryable();
         }
-      
+
     }
 }

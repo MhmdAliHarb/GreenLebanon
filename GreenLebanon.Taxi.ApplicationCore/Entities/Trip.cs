@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GreenLebanon.Taxi.ApplicationCore.Entities {
+﻿namespace GreenLebanon.Taxi.ApplicationCore.Entities
+{
     public class Trip {
         public int Id { get; set; }
         public string StartingPoint { get; set; }
@@ -13,9 +8,18 @@ namespace GreenLebanon.Taxi.ApplicationCore.Entities {
         public TimeOnly Timing {  get; set; } 
 
         public int ClientId { get; set; }
-        public Client Client { get; set; }
+        public virtual Client Client { get; set; }
 
         public int DriverId { get; set; }
-        public Driver Driver { get; set; }
+        public virtual Driver Driver { get; set; }
+
+        public Status Status { get; set; }
+    }
+
+    public enum Status
+    {
+        Pending,
+        InProgress,
+        Done
     }
 }

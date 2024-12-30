@@ -9,15 +9,15 @@ namespace GreenLebanon.Taxi.API.Controllers {
     public class DriversController( AppDbContext context ) : ControllerBase {
         private readonly AppDbContext _context = context;
 
-        [HttpPost]
-        public async Task<IActionResult> AddDriver( [FromBody] AddClientRequest request ) {
-            if ( !ModelState.IsValid ) {
-                return BadRequest(ModelState);
-            }
-            var _driver = new Driver();
-            _context.Drivers.Add(_driver);
-            await _context.SaveChangesAsync();
-            return Ok(new { Message = "Client added successfully", ClientId = _driver.Id });
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> AddDriver( [FromBody] AddClientRequest request ) {
+        //    if ( !ModelState.IsValid ) {
+        //        return BadRequest(ModelState);
+        //    }
+        //    var _driver = new Driver();
+        //    _context.Drivers.Add(_driver);
+        //    await _context.SaveChangesAsync();
+        //    return Ok(new { Message = "Client added successfully", ClientId = _driver.Id });
+        //}
     }
 }
