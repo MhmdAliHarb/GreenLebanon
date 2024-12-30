@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace GreenLebanon.Taxi.ApplicationCore.Entities
 {
-    public class ApplicationUser : IdentityUser<string>
+    public class ApplicationUser : IdentityUser
     {
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public virtual ICollection<Trip> Trips { get; set; }
     }
 }

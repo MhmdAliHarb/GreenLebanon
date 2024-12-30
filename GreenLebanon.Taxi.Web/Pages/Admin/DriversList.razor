@@ -33,8 +33,8 @@
                 @foreach (var driver in Drivers)
                 {
                     <tr>
-                        <td>@driver.ApplicationUser.FirstName</td>
-                        <td>@driver.ApplicationUser.LastName</td>
+                        <td>@driver.FirstName</td>
+                        <td>@driver.LastName</td>
 
                         <td>
                             <button class="btn btn-success me-2">Accept</button>
@@ -48,8 +48,7 @@
 </div>
 
 @code {
-    private List<Driver> Drivers;
-
+    private List<ApplicationUser> Drivers;
 
 
     private async Task AcceptDriver(int tripId)

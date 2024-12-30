@@ -9,28 +9,17 @@ using System.Threading.Tasks;
 
 namespace GreenLebanon.Taxi.Infrastructure.Repositories
 {
-    public class DriverRepository : IDriverRepository
+    public class DriverRepository(AppDbContext appDbContext) : IDriverRepository
     {
-        private readonly AppDbContext appDbContext;
+        private readonly AppDbContext appDbContext = appDbContext;
 
-        public DriverRepository(AppDbContext appDbContext)
-        {
-            this.appDbContext = appDbContext;
-        }
-
-        public async Task<int> AddDriverAsync(Driver driver)
-        {
-            appDbContext.Drivers.Add(driver);
-            return await appDbContext.SaveChangesAsync();
-        }
-
-        public async Task<IQueryable<Driver>> GetAllDriversAsync(string driverId = null)
+        public async Task<IQueryable<ApplicationUser>> GetAllDriversAsync(string driverId = null)
         {
             if (!string.IsNullOrEmpty(driverId))
             {
-                appDbContext.Drivers.Where(x => x.ApplicationUserId == driverId);
+                appDbContext.ApplicationUsers.Where(x => x.Id == driverId);
             }
-            return appDbContext.Drivers.AsQueryable();
+            return appDbContext.ApplicationUsers.AsQueryable();
         }
     }
 }

@@ -1,16 +1,11 @@
 ﻿using GreenLebanon.Taxi.ApplicationCore.Entities;
-using GreenLebanon.Taxi.ApplicationCore.Repositories;
 using GreenLebanon.Taxi.Shared.Requests;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GreenLebanon.Taxi.Application.Services
 {
@@ -32,6 +27,8 @@ namespace GreenLebanon.Taxi.Application.Services
                 Email = model.Email,
                 UserName = model.Username,
                 PhoneNumber = model.MobileNumber,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
             };
 
             var createUser = await this.userManager.CreateAsync(user, model.Password);
@@ -50,13 +47,13 @@ namespace GreenLebanon.Taxi.Application.Services
 
         public async Task<UserLoginResponse> Login(LoginDto model)
         {
-            var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+            var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
-                var appUser = this.userManager.Users.FirstOrDefault(x => x.Email == model.Email);
-                var token = await this.GenerateJwtToken(model.Email, appUser);
-                var identityUser = await userManager.FindByEmailAsync(model.Email);
+                var appUser = this.userManager.Users.FirstOrDefault(x => x.UserName.ToLower() == model.Username.ToLower());
+                var token = await this.GenerateJwtToken( appUser);
+                var identityUser = await userManager.FindByNameAsync(model.Username);
                 var roles = await this.userManager.GetRolesAsync(identityUser);
 
                 return new UserLoginResponse() { Roles = roles.ToList(), Token = token.ToString() };
@@ -118,7 +115,7 @@ namespace GreenLebanon.Taxi.Application.Services
             return role;
         }
 
-        private async Task<object> GenerateJwtToken(string email, ApplicationUser user)
+        private async Task<object> GenerateJwtToken(ApplicationUser user)
         {
             var userClaims = await this.userManager.GetClaimsAsync(user);
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("JwtIssuerOptions:SecretKey").Value));

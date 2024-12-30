@@ -9,8 +9,6 @@ namespace GreenLebanon.Taxi.ApplicationCore.Repositories
 {
     public interface IClientRepository
     {
-        Task<int> AddClientAsync(Client client);
-
-        Task<IQueryable<Client>> GetAllClientsAsync(string clientId = null);
+        Task<IQueryable<ApplicationUser>> GetAllClientsAsync(string clientId = null);
     }
 }

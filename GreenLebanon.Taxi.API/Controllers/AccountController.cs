@@ -45,7 +45,7 @@ namespace GreenLebanon.Taxi.API.Controllers
 
             if (result.Token.Contains("User name does not exist! :("))
             {
-                return NotFound(model.Email + " does not exist");
+                return NotFound(model.Username + " does not exist");
             }
 
             return Ok(result);

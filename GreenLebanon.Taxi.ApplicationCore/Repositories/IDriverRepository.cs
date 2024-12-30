@@ -9,7 +9,6 @@ namespace GreenLebanon.Taxi.ApplicationCore.Repositories
 {
     public interface IDriverRepository
     {
-        Task<int> AddDriverAsync( Driver driver );
-        Task<IQueryable<Driver>> GetAllDriversAsync(string driverId = null);
+        Task<IQueryable<ApplicationUser>> GetAllDriversAsync(string driverId = null);
     }
 }

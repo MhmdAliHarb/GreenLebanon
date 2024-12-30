@@ -9,17 +9,6 @@ namespace GreenLebanon.Taxi.API.Controllers
     public class ClientsController(ClientService clientService) : ControllerBase
     {
         private readonly ClientService clientService = clientService;
-
-        [HttpPost]
-        public async Task<IActionResult> AddClient([FromBody] AddClientRequest request)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            return Ok(await clientService.AddNewClientAsync(request));
-        }
     }
 }
 

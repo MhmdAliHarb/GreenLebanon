@@ -4,29 +4,18 @@ using GreenLebanon.Taxi.Infrastructure.Data;
 
 namespace GreenLebanon.Taxi.Infrastructure.Repositories
 {
-    public class ClientRepository : IClientRepository
+    public class ClientRepository(AppDbContext appDbContext) : IClientRepository
     {
-        private readonly AppDbContext appDbContext;
+        private readonly AppDbContext appDbContext = appDbContext;
 
-        public ClientRepository(AppDbContext appDbContext)
-        {
-            this.appDbContext = appDbContext;
-        }
-
-        public async Task<int> AddClientAsync(Client client)
-        {
-            appDbContext.Clients.Add(client);
-            return await appDbContext.SaveChangesAsync();
-        }
-
-        public async Task<IQueryable<Client>> GetAllClientsAsync(string clientId = null)
+        public async Task<IQueryable<ApplicationUser>> GetAllClientsAsync(string clientId = null)
         {
             if (!string.IsNullOrEmpty(clientId))
             {
-                appDbContext.Clients.Where(x => x.ApplicationUserId == clientId);
+                appDbContext.ApplicationUsers.Where(x => x.Id == clientId);
             }
 
-            return appDbContext.Clients.AsQueryable();
+            return appDbContext.ApplicationUsers.AsQueryable();
         }
 
     }
