@@ -8,6 +8,11 @@ namespace GreenLebanon.Taxi.Infrastructure.Data
     public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext(options)
     {
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        public DbSet<IdentityUserRole<string>> AspNetUserRoles { get; set; }
+
+        public DbSet<IdentityRole> AspNetRoles { get; set; }
+
         public DbSet<Trip> Trips { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

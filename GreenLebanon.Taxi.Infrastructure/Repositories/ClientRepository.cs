@@ -8,14 +8,17 @@ namespace GreenLebanon.Taxi.Infrastructure.Repositories
     {
         private readonly AppDbContext appDbContext = appDbContext;
 
-        public async Task<IQueryable<ApplicationUser>> GetAllClientsAsync(string clientId = null)
+        public async Task<IQueryable<ApplicationUser>> GetClientsAsync(string clientId = null)
         {
+            var result = appDbContext.ApplicationUsers
+                    .Join(appDbContext.AspNetUserRoles, x => x.Id, c => c.UserId, (x, c) => x);
+
             if (!string.IsNullOrEmpty(clientId))
             {
-                appDbContext.ApplicationUsers.Where(x => x.Id == clientId);
+                result = result.Where(x => x.Id == clientId);
             }
 
-            return appDbContext.ApplicationUsers.AsQueryable();
+            return result;
         }
 
     }

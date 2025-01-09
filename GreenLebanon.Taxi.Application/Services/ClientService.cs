@@ -7,9 +7,14 @@ namespace GreenLebanon.Taxi.Application.Services
     {
         private readonly IClientRepository clientRepository = clientRepository;
 
-        public async Task<IQueryable<ApplicationUser>> GetAllClientsAsync()
+        public async Task<IEnumerable<ApplicationUser>> GetAllClientsAsync()
         {
-            return await clientRepository.GetAllClientsAsync();
+            return (await clientRepository.GetClientsAsync()).ToList();
+        }
+
+        public async Task<ApplicationUser> GetClientByIdAsync(string clientId)
+        {
+            return (await clientRepository.GetClientsAsync(clientId)).First();
         }
 
     }
