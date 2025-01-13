@@ -35,9 +35,9 @@ namespace GreenLebanon.Taxi.Application.Services
 
             if (createUser.Succeeded)
             {
-                await this.userManager.AddToRoleAsync(user, await this.GetRoleName(model.UserType));
+                await userManager.AddToRoleAsync(user, Enum.GetName(model.UserType) ?? string.Empty);
 
-                await this.signInManager.SignInAsync(user, false);
+                await signInManager.SignInAsync(user, false);
 
                 return "User Registered :)";
             }
@@ -52,7 +52,7 @@ namespace GreenLebanon.Taxi.Application.Services
             if (result.Succeeded)
             {
                 var appUser = this.userManager.Users.FirstOrDefault(x => x.UserName.ToLower() == model.Username.ToLower());
-                var token = await this.GenerateJwtToken( appUser);
+                var token = await this.GenerateJwtToken(appUser);
                 var identityUser = await userManager.FindByNameAsync(model.Username);
                 var roles = await this.userManager.GetRolesAsync(identityUser);
 

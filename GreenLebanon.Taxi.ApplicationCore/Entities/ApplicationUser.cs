@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,14 @@ namespace GreenLebanon.Taxi.ApplicationCore.Entities
         public string LastName { get; set; }
 
         public virtual ICollection<Trip> Trips { get; set; }
+    }
+
+    public class Driver
+    {
+        public string UserId { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
+
+        public string Region { get; set; }
     }
 }

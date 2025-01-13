@@ -21,6 +21,12 @@ namespace GreenLebanon.Taxi.API.Controllers
         {
             return Ok(await clientService.GetClientByIdAsync(clientId));
         }
+
+        [HttpGet("GetClientTrips/{clientId}")]
+        public async Task<IActionResult> GetClientTrips(string clientId)
+        {
+            return Ok(await clientService.GetClientTripsAsync(clientId));
+        }
     }
 }
 

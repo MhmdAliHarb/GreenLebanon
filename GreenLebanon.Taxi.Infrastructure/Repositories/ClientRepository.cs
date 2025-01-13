@@ -21,5 +21,9 @@ namespace GreenLebanon.Taxi.Infrastructure.Repositories
             return result;
         }
 
+        public async Task<IQueryable<Trip>> GetClientTripsAsync(string clientId)
+        {
+            return appDbContext.Trips.Join(appDbContext.ApplicationUsers, x => x.DriverId, c=> c.Id, (x, c) => x).Where(x => x.ClientId == clientId);
+        }
     }
 }

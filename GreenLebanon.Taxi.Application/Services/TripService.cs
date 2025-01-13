@@ -5,26 +5,36 @@ using GreenLebanon.Taxi.Shared.Requests;
 
 namespace GreenLebanon.Taxi.Application.Services
 {
-    public class TripService( ITripRepository tripRepository )
+    public class TripService(ITripRepository tripRepository, IDriverRepository driverRepository)
     {
-
         private readonly ITripRepository tripRepository = tripRepository;
+        
+        private readonly IDriverRepository driverRepository = driverRepository;
 
-        public async Task<int> AddNewTripAsync( AddTripRequest request )
+        public async Task<int> AddNewTripAsync(AddTripRequest request)
         {
-            return await tripRepository.AddTripAsync(new ApplicationCore.Entities.Trip()
+            var availableDriver = await driverRepository.GetAvailableDriverAsync(request.Region);
+
+            if (availableDriver == default)
+            {
+                throw new InvalidProgramException("No driver available at this time");
+            }
+
+            return await tripRepository.AddTripAsync(new Trip()
             {
                 Destination = request.Destination,
                 StartingPoint = request.StartingPoint,
                 Region = request.Region,
-                Timing = request.Timing
+                Timing = request.Timing,
+                DriverId = availableDriver.UserId,
+                Status = Status.Pending,
+                ClientId = request.ClientId,
             });
         }
-        public async Task<IQueryable<Trip>> GetAllTripsAsync( int? TripId = null )
+
+        public async Task<IQueryable<Trip>> GetAllTripsAsync(int? tripId = null)
         {
-            return await tripRepository.GetAllTripsAsync(TripId);
+            return await tripRepository.GetAllTripsAsync(tripId);
         }
-
-
     }
 }
