@@ -25,4 +25,5 @@ namespace GreenLebanon.Taxi.ApplicationCore.Entities
 
         public string Region { get; set; }
     }
+    
 }

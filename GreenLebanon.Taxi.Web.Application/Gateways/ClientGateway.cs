@@ -18,6 +18,14 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
 
             return int.Parse(await result.Content.ReadAsStringAsync());
         }
-        
+     public async Task<AddClientRequest> GetClientAsync( int Id )
+        {
+            var result = await httpClient.GetAsync($"api/{Id}");
+            if ( result.IsSuccessStatusCode )
+            {
+                return await result.Content.ReadFromJsonAsync<AddClientRequest>();
+            }
+            throw new Exception("Error retrieving client data");
+        }
     }
 }

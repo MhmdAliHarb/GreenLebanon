@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace GreenLebanon.Taxi.Web.Infrastructure.Gateways
 {
-    public interface IClientGateway
+    public interface IAuthenticationGateway
     {
-        Task<int> AddNewClientAsync(AddClientRequest request, CancellationToken cancellationToken);
-        Task<AddClientRequest> GetClientAsync(int Id);
+        Task<AuthResult> RegisterAsync(RegistrationDto model);
+        Task<AuthResult> LoginAsync(LoginDto model);
     }
 }

@@ -1,4 +1,5 @@
-﻿@page "/profile"
+﻿@page "/profile/{ClientId:int}"
+@inject IClientGateway  ClientGateway
 @using GreenLebanon.Taxi.Web.Identity
 @inject NavigationManager Navigation
 @inject IAccountManagement AccountManagement 
@@ -54,25 +55,24 @@
     }
 </style>
 
-@code {
-    private UserProfile user;
+@code{
+    private AddClientRequest Model;
+    private string _errorMessage;
+    [Parameter]
+    private int ClientId  { get; set; }
 
-    protected override async Task OnInitializedAsync() {
-        user = await GetUserProfileAsync();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Model = await ClientGateway.GetClientByIdAsync(ClientId);
+        }
+        catch ( Exception ex )
+        {
+            _errorMessage = ex.Message;
+        }
     }
-
-    private async Task<UserProfile> GetUserProfileAsync() {
-        // Simulate fetching user profile from a database
-        await Task.Delay(1000); // Simulated delay
-
-        return new UserProfile {
-                FirstName = "Mohammad Ali",
-                LastName = "Harb",
-                PhoneNumber = "76 896 326",
-                Address = "Beirut - Dahyeh - Kafaat"
-            };
-    }
-
     private void Logout() {
         // Logic to log out the user
     }

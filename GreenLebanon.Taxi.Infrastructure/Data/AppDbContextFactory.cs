@@ -12,7 +12,7 @@ namespace GreenLebanon.Taxi.Infrastructure.Data
         {
             DbContextOptionsBuilder<AppDbContext> optionsBuilder = new();
 
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-D4GC2UT;Initial Catalog=GreenLebanon;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-GM7E7MK\\SQLEXPRESS;Initial Catalog=GreenLebanonWasmDb;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
             return new AppDbContext(optionsBuilder.Options);
         }

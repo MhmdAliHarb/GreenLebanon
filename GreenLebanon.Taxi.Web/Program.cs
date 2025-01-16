@@ -1,9 +1,12 @@
 using GreenLebanon.Taxi.Web.Application.Gateways;
 using GreenLebanon.Taxi.Web.Identity;
 using GreenLebanon.Taxi.Web.Infrastructure.Gateways;
+using GreenLebanon.Taxi.Web.Pages.Auth;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using System.Security.Cryptography.Xml;
+using System.Security.Principal;
 
 namespace GreenLebanon.Taxi.Web
 {
@@ -13,6 +16,13 @@ namespace GreenLebanon.Taxi.Web
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
             builder.Services.AddAuthorizationCore();
+            builder.Services.AddScoped<IAuthenticationGateway, AuthenticationGateway>();  
+            builder.Services.AddHttpClient<IAuthenticationGateway, AuthenticationGateway>(
+               client =>
+               {
+                   client.BaseAddress = new Uri("https://localhost:7241/");
+               });
+
             builder.Services.AddScoped<IClientGateway, ClientGateway>();
             builder.Services.AddHttpClient<IClientGateway, ClientGateway>(client =>
             {
