@@ -6,36 +6,33 @@
 @inject NavigationManager Manager
 
 <PageTitle> New Trip</PageTitle>
-
 <div class="container mt-3 vh-75">
     <div class="card shadow-lg">
         <div class="card-header bg-special text-white">
             <h4 class="mb-0">Add New Trip</h4>
         </div>
         <div class="card-body">
-            <EditForm Model="request" OnValidSubmit="submit">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="fromLocation" class="form-label">From</label>
-                        <InputText @bind-Value="request.StartingPoint" id="fromLocation" class="form-control" placeholder="" />
-                    </div>
-                    <div class="col-md-6">
-                        <label for="toLocation" class="form-label">To</label>
-                        <InputText @bind-Value="request.Destination" id="toLocation" class="form-control" placeholder="" />
-                    </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="fromLocation" class="form-label">From</label>
+                    <InputText @bind-Value="request.StartingPoint" id="fromLocation" class="form-control" placeholder="" />
                 </div>
-                <div class="mb-3">
-                    <label for="tripTime" class="form-label">Time</label>
-                    <InputDate @bind-Value="request.Timing" id="tripTime" class="form-control" />
+                <div class="col-md-6">
+                    <label for="toLocation" class="form-label">To</label>
+                    <InputText @bind-Value="request.Destination" id="toLocation" class="form-control" placeholder="" />
                 </div>
-                <div>
-              
-                <div class="text-center">
-                    <button class="btn bg-special">Submit</button>
-                </div></div>
-                <DataAnnotationsValidator />
-                <ValidationSummary />
-            </EditForm>
+            </div>
+            <div class="mb-3">
+                <label for="tripTime" class="form-label">Time</label>
+                <InputDate @bind-Value="request.Timing" id="tripTime" class="form-control" />
+            </div>
+            <div>
+            
+            <div class="text-center">
+                <button class="btn bg-special">Submit</button>
+            </div></div>
+            <DataAnnotationsValidator />
+            <ValidationSummary />
         </div>
     </div>
 </div>
@@ -66,7 +63,7 @@
 </style>
 
 @code {
-    private AddTripRequest request;
+    private AddTripRequest? request;
 
     protected override void OnInitialized() => request ??= new();
 

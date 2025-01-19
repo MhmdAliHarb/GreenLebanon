@@ -1,0 +1,58 @@
+﻿@page "/dashboard"
+<h3>Dashboard</h3>
+<div>
+    <canvas id="@ChartId" width="400" height="400"></canvas>
+</div>
+
+@code {
+    [Parameter] public string ChartId { get; set; } = Guid.NewGuid().ToString(); // Unique ID
+    [Parameter] public string[] Labels { get; set; } // Labels for segments
+    [Parameter] public int[] Data { get; set; } // Data values
+    [Parameter] public string[] BackgroundColors { get; set; } // Colors for segments
+    [Parameter] public string Title { get; set; } // Chart title
+
+    protected override async Task OnAfterRenderAsync( bool firstRender )
+    {
+        if ( firstRender )
+        {
+            await RenderChartAsync();
+        }
+    }
+
+    private async Task RenderChartAsync()
+    {
+        // Prepare chart configuration
+        var chartConfig = new
+        {
+            type = "doughnut",
+            data = new
+            {
+                labels = Labels,
+                datasets = new[]
+                {
+                    new
+                    {
+                        data = Data,
+                        backgroundColor = BackgroundColors
+                    }
+                }
+            },
+            options = new
+            {
+                responsive = true,
+                plugins = new
+                {
+                    legend = new { position = "top" },
+                    title = new
+                    {
+                        display = true,
+                        text = Title
+                    }
+                }
+            }
+        };
+
+        // Invoke Chart.js to render the chart
+      //  await JSRuntime.InvokeVoidAsync("renderChart", ChartId, chartConfig);
+    }
+}

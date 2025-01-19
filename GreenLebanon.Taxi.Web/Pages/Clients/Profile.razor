@@ -10,7 +10,7 @@
             <button class="btn btn-danger btn-sm" @onclick="Logout">Log Out</button>
         </div>
         <div class="card-body">
-            @if ( user == null ) {
+            @if ( Model == null ) {
                 <div class="text-center">
                     <div class="spinner-border text-success" role="status">
                         <span class="visually-hidden">Loading...</span>
@@ -20,16 +20,16 @@
             else {
                 <dl class="row mb-4">
                     <dt class="col-sm-3">First Name:</dt>
-                    <dd class="col-sm-9">@user.FirstName</dd>
+                    <dd class="col-sm-9">@Model.FirstName</dd>
 
                     <dt class="col-sm-3">Last Name:</dt>
-                    <dd class="col-sm-9">@user.LastName</dd>
+                    <dd class="col-sm-9">@Model.LastName</dd>
 
                     <dt class="col-sm-3">Phone Number:</dt>
-                    <dd class="col-sm-9">@user.PhoneNumber</dd>
+                    <dd class="col-sm-9">@Model.PhoneNumber</dd>
 
                     <dt class="col-sm-3">Address:</dt>
-                    <dd class="col-sm-9">@user.Address</dd>
+                    <dd class="col-sm-9">@Model.Address</dd>
                 </dl>
                 <div class="text-center">
                     <button class="btn btn-warning me-2" @onclick="ViewHistory">View History</button>
@@ -59,14 +59,14 @@
     private AddClientRequest Model;
     private string _errorMessage;
     [Parameter]
-    private int ClientId  { get; set; }
+    public int ClientId  { get; set; }
 
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            Model = await ClientGateway.GetClientByIdAsync(ClientId);
+            Model = await ClientGateway.GetClientAsync(ClientId);
         }
         catch ( Exception ex )
         {

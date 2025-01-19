@@ -7,6 +7,284 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="bin\Debug\**" />
+    <Content Remove="bin\Debug\**" />
+    <EmbeddedResource Remove="bin\Debug\**" />
+    <None Remove="bin\Debug\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Clients\AppPhoto.razor" />
+    <Content Remove="Pages\Clients\Client.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\Clients\Client.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs" />
+    <Compile Include="obj\Debug\net8.0\GreenLebanon.Taxi.Web.AssemblyInfo.cs" />
+    <Compile Include="obj\Debug\net8.0\GreenLebanon.Taxi.Web.GlobalUsings.g.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="obj\Debug\net8.0\GreenLebanon.Taxi.Web.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\net8.0\GreenLebanon.Taxi.Web.sourcelink.json" />
+    <Content Include="obj\GreenLebanon.Taxi.Web.csproj.nuget.dgspec.json" />
+    <Content Include="obj\project.assets.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="obj\Debug\net8.0\GreenLebanon.Taxi.Web.AssemblyInfoInputs.cache" />
+    <None Include="obj\Debug\net8.0\GreenLebanon.Taxi.Web.assets.cache" />
+    <None Include="obj\Debug\net8.0\GreenLebanon.Taxi.Web.csproj.AssemblyReference.cache" />
+    <None Include="obj\Debug\net8.0\GreenLebanon.Taxi.Web.csproj.BuildWithSkipAnalyzers" />
+    <None Include="obj\Debug\net8.0\GreenLebanon.Taxi.Web.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\net8.0\GreenLebanon.Taxi.Web.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="obj\Debug\net8.0\GreenLebanon.Taxi.Web.MvcApplicationPartsAssemblyInfo.cache" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Blazored.LocalStorage.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\GreenLebanon.Taxi.ApplicationCore.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\GreenLebanon.Taxi.Shared.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\GreenLebanon.Taxi.Web.Application.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\GreenLebanon.Taxi.Web.Infrastructure.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\GreenLebanon.Taxi.Web.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Authentication.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Authentication.Cookies.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Authentication.Core.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Authentication.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Authorization.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Components.Authorization.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Components.Forms.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Components.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Components.Web.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Components.WebAssembly.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Cryptography.Internal.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Cryptography.KeyDerivation.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.DataProtection.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.DataProtection.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Hosting.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Hosting.Server.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Http.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Http.Extensions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Http.Features.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Http.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Identity.EntityFrameworkCore.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Identity.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.Metadata.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.AspNetCore.WebUtilities.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.CSharp.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.EntityFrameworkCore.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.EntityFrameworkCore.Relational.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.EntityFrameworkCore.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Caching.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Caching.Memory.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Configuration.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Configuration.Binder.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Configuration.FileExtensions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Configuration.Json.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Configuration.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.DependencyInjection.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.DependencyInjection.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Diagnostics.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Diagnostics.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.FileProviders.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.FileProviders.Physical.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.FileSystemGlobbing.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Hosting.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Http.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Identity.Core.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Identity.Stores.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Logging.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Logging.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.ObjectPool.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Options.ConfigurationExtensions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Options.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.Primitives.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Extensions.WebEncoders.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.IdentityModel.Abstractions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.IdentityModel.Logging.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.IdentityModel.Tokens.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.JSInterop.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.JSInterop.WebAssembly.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Net.Http.Headers.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.VisualBasic.Core.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.VisualBasic.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Win32.Primitives.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\Microsoft.Win32.Registry.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\mscorlib.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\netstandard.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.AppContext.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Buffers.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Collections.Concurrent.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Collections.Immutable.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Collections.NonGeneric.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Collections.Specialized.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Collections.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.ComponentModel.Annotations.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.ComponentModel.DataAnnotations.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.ComponentModel.EventBasedAsync.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.ComponentModel.Primitives.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.ComponentModel.TypeConverter.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.ComponentModel.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Configuration.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Console.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Core.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Data.Common.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Data.DataSetExtensions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Data.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Diagnostics.Contracts.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Diagnostics.Debug.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Diagnostics.DiagnosticSource.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Diagnostics.FileVersionInfo.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Diagnostics.Process.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Diagnostics.StackTrace.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Diagnostics.TextWriterTraceListener.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Diagnostics.Tools.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Diagnostics.TraceSource.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Diagnostics.Tracing.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Drawing.Primitives.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Drawing.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Dynamic.Runtime.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Formats.Asn1.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Formats.Tar.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Globalization.Calendars.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Globalization.Extensions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Globalization.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.Compression.Brotli.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.Compression.FileSystem.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.Compression.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.Compression.ZipFile.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.FileSystem.AccessControl.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.FileSystem.DriveInfo.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.FileSystem.Primitives.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.FileSystem.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.FileSystem.Watcher.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.IsolatedStorage.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.MemoryMappedFiles.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.Pipelines.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.Pipes.AccessControl.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.Pipes.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.UnmanagedMemoryStream.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.IO.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Linq.Expressions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Linq.Parallel.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Linq.Queryable.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Linq.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Memory.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.Http.Json.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.Http.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.HttpListener.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.Mail.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.NameResolution.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.NetworkInformation.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.Ping.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.Primitives.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.Quic.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.Requests.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.Security.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.ServicePoint.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.Sockets.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.WebClient.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.WebHeaderCollection.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.WebProxy.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.WebSockets.Client.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Net.WebSockets.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Numerics.Vectors.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Numerics.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.ObjectModel.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Private.CoreLib.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Private.DataContractSerialization.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Private.Uri.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Private.Xml.Linq.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Private.Xml.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Reflection.DispatchProxy.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Reflection.Emit.ILGeneration.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Reflection.Emit.Lightweight.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Reflection.Emit.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Reflection.Extensions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Reflection.Metadata.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Reflection.Primitives.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Reflection.TypeExtensions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Reflection.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Resources.Reader.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Resources.ResourceManager.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Resources.Writer.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.CompilerServices.Unsafe.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.CompilerServices.VisualC.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.Extensions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.Handles.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.InteropServices.JavaScript.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.InteropServices.RuntimeInformation.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.InteropServices.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.Intrinsics.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.Loader.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.Numerics.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.Serialization.Formatters.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.Serialization.Json.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.Serialization.Primitives.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.Serialization.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.Serialization.Xml.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Runtime.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.AccessControl.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Claims.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Cryptography.Algorithms.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Cryptography.Cng.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Cryptography.Csp.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Cryptography.Encoding.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Cryptography.OpenSsl.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Cryptography.Pkcs.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Cryptography.Primitives.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Cryptography.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Cryptography.X509Certificates.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Cryptography.Xml.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Permissions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Principal.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.Principal.Windows.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.SecureString.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Security.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.ServiceModel.Web.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.ServiceProcess.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Text.Encoding.CodePages.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Text.Encoding.Extensions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Text.Encoding.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Text.Encodings.Web.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Text.Json.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Text.RegularExpressions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Threading.Channels.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Threading.Overlapped.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Threading.Tasks.Dataflow.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Threading.Tasks.Extensions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Threading.Tasks.Parallel.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Threading.Tasks.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Threading.Thread.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Threading.ThreadPool.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Threading.Timer.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Threading.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Transactions.Local.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Transactions.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.ValueTuple.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Web.HttpUtility.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Web.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Windows.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Xml.Linq.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Xml.ReaderWriter.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Xml.Serialization.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Xml.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Xml.XDocument.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Xml.XmlDocument.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Xml.XmlSerializer.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Xml.XPath.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\System.Xml.XPath.XDocument.wasm" />
+    <None Include="obj\Debug\net8.0\tmp-webcil\WindowsBase.wasm" />
+    <None Include="obj\GreenLebanon.Taxi.Web.csproj.nuget.g.props" />
+    <None Include="obj\GreenLebanon.Taxi.Web.csproj.nuget.g.targets" />
+    <None Include="obj\project.nuget.cache" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.8" PrivateAssets="all" />
@@ -19,6 +297,20 @@
     <ProjectReference Include="..\GreenLebanon.Taxi.Shared\GreenLebanon.Taxi.Shared.csproj" />
     <ProjectReference Include="..\GreenLebanon.Taxi.Web.Application\GreenLebanon.Taxi.Web.Application.csproj" />
     <ProjectReference Include="..\GreenLebanon.Taxi.Web.Infrastructure\GreenLebanon.Taxi.Web.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\" />
+    <Folder Include="obj\Debug\net8.0\compressed\" />
+    <Folder Include="obj\Debug\net8.0\refint\" />
+    <Folder Include="obj\Debug\net8.0\ref\" />
+    <Folder Include="obj\Debug\net8.0\scopedcss\bundle\" />
+    <Folder Include="obj\Debug\net8.0\scopedcss\Layout\" />
+    <Folder Include="obj\Debug\net8.0\scopedcss\Pages\Clients\" />
+    <Folder Include="obj\Debug\net8.0\scopedcss\Pages\Driver\" />
+    <Folder Include="obj\Debug\net8.0\scopedcss\projectbundle\" />
+    <Folder Include="obj\Debug\net8.0\staticwebassets\" />
+    <Folder Include="obj\Debug\net8.0\webcil\" />
   </ItemGroup>
 
 </Project>

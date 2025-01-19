@@ -20,7 +20,9 @@ namespace GreenLebanon.Taxi.Web.Identity
             {
                 return new AuthenticationState(new ClaimsPrincipal(new  ClaimsIdentity()));
             }
-            var claims = ParseClaimsFromJwt(token); 
+            // var claims = ParseClaimsFromJwt(token); 
+            return null;
+            
         }
     }
 }

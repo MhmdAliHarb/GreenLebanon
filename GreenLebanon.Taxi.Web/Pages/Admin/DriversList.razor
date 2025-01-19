@@ -35,9 +35,9 @@
                     <tr>
                         <td>@driver.FirstName</td>
                         <td>@driver.LastName</td>
-
+                        <td> @driver.PhoneNumber</td>
                         <td>
-                            <button class="btn btn-success me-2">Accept</button>
+                            
                             <button class="btn btn-danger">Delete</button>
                         </td>
                     </tr>
@@ -48,9 +48,18 @@
 </div>
 
 @code {
-    private List<ApplicationUser> Drivers;
-
-
+    private List<Shared.Requests.Driver> Drivers;
+    [Inject]
+    private IDriverGateway gateway { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Drivers = await LoadDrivers();
+    }
+    private async Task<List<Shared.Requests.Driver>> LoadDrivers()
+    {
+        var list = await gateway.GetAllDriversAsync();
+        return list;
+    }
     private async Task AcceptDriver(int tripId)
     {
         // Logic to accept the trip

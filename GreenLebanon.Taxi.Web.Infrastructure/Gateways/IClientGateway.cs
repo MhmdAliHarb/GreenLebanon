@@ -11,5 +11,6 @@ namespace GreenLebanon.Taxi.Web.Infrastructure.Gateways
     {
         Task<int> AddNewClientAsync(AddClientRequest request, CancellationToken cancellationToken);
         Task<AddClientRequest> GetClientAsync(int Id);
+        Task<List<AddClientRequest>> GetAllClientsAsync();
     }
 }

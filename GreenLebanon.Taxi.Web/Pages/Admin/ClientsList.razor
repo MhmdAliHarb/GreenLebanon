@@ -1,0 +1,64 @@
+﻿@page "/clients-list"
+@inject IClientGateway gateway
+<h3>ClientsList</h3>
+<div class="container mt-3 vh-75">
+    <div class="card shadow-lg">
+        <div class="card-header bg-special text-center text-white">
+            <h4 class="mb-0">Signed Clients</h4>
+        </div>
+        <div class="card-body">
+            @if ( clients == null )
+            {
+                <div class="text-center">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            }
+            else if ( clients.Any() )
+            {
+                <table class="table table-striped table-hover">
+                    <thead class="table-sm">
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone Number:</th>
+                            <th>Date Of Birth</th>
+                            <th> Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ( var client in clients )
+                        {
+                            <tr>
+                                <td>@client.FirstName @client.LastName</td>
+                                <td> @client.PhoneNumber </td>
+                                <td>@client.DateOfBirth</td>
+                                <td>@client.Address</td>
+                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-warning text-center" role="alert">
+                    No trips available.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@code {
+    private List<AddClientRequest>? clients;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clients = await LoadClientsAsync();
+    }
+    private async Task<List<AddClientRequest>> LoadClientsAsync()
+    {
+        var list = await gateway.GetAllClientsAsync();
+        return list;
+    }
+}
