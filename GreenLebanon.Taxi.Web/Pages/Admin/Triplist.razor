@@ -54,14 +54,14 @@
 @code {
     private List<Trip>? trips;
 
-    protected override async Task OnInitializedAsync()
-    {
-        trips = await LoadTripsAsync();
-    }
-    private async Task<List<Trip>> LoadTripsAsync()
-    {
-        var list = await gateway.GetAllTripsAsync();
-        return list;       
-    }
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     //trips = await LoadTripsAsync();
+    // }
+    // private async Task<List<Trip>> LoadTripsAsync()
+    // {
+    //     var list = await gateway.GetAllTripsAsync();
+    //     return list;       
+    // }
 
 }

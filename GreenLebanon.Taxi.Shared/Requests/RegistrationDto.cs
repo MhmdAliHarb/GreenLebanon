@@ -27,10 +27,6 @@
         public string LastName { get; set; }
 
         [Required]
-        [DataType(DataType.Text)]
-        public string Location { get; set; }
-
-        [Required]
         [DataType(DataType.PhoneNumber)]
         public string MobileNumber { get; set; }
 

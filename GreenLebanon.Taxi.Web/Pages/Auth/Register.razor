@@ -1,40 +1,42 @@
 ﻿@page "/register"
+
 @using GreenLebanon.Taxi.Web.Infrastructure.Gateways
 @using GreenLebanon.Taxi.Shared.Requests
-@inject IAuthenticationGateway gateway;
+
+@inject IAuthenticationGateway gateway
 @inject NavigationManager Navigation
 
-    <div class="col-12 col-md-5 col-lg-4 align-items-center ">
-        <div class="card card-shadow border-0 rounded-3 bg-green-gradient col-10 m-4 ">
-            <div class="card-body p-4">
-                <div class="row g-6">
-                    <div class="col-12">
-                        <div class="text-center">
-                            <h3 class="fw-bold fs-5 mb-2 text-white"> Sign In</h3>
-                            <p class="text-white-50"> Login Into GreenTaxi WebAPP</p>
-                        </div>
+<div class="col-12 col-md-5 col-lg-4 align-items-center ">
+    <div class="card card-shadow border-0 rounded-3 bg-green-gradient col-10 m-4 ">
+        <div class="card-body p-4">
+            <div class="row g-6">
+                <div class="col-12">
+                    <div class="text-center">
+                        <h3 class="fw-bold fs-5 mb-2 text-white"> Sign In</h3>
+                        <p class="text-white-50"> Login Into GreenTaxi WebAPP</p>
                     </div>
                 </div>
-                <EditForm Model="Model" OnValidSubmit="Submit">
-                    <DataAnnotationsValidator />
-                    <div class="form-floating mb-4">
-                        <InputText @bind-Value="Model.FirstName" type="text" class="form-control rounded-2 border-0" id="firstName" placeholder=""/>
-                          <label for="firstName"> First Name</label>     
-                          <ValidationMessage For="() => Model.FirstName" />
-                    </div>
+            </div>
+            <EditForm Model="Model" OnSubmit="OnSubmit">
+                <DataAnnotationsValidator />
+                <div class="form-floating mb-4">
+                    <InputText @bind-Value="@Model.FirstName" type="text" class="form-control rounded-2 border-0" id="firstName" placeholder="" />
+                    <label for="firstName"> First Name</label>
+                    <ValidationMessage For="() => Model.FirstName" />
+                </div>
                 <div class="form-floating mb-4">
                     <InputText @bind-Value="Model.LastName" type="text" class="form-control rounded-2 border-0" id="lastName" placeholder="" />
                     <label for="lastName"> Last Name</label>
                     <ValidationMessage For="() => Model.LastName" />
                 </div>
-                <div class="form-floating mb-4"> 
-                    <InputText @bind-Value="Model.Email" type="email" class="form-control rounded-2 border-0" id="email" placeholder=""/>
+                <div class="form-floating mb-4">
+                    <InputText @bind-Value="Model.Email" type="email" class="form-control rounded-2 border-0" id="email" placeholder="" />
                     <label for="email"> Email</label>
                     <ValidationMessage For="() => Model.Email" />
                 </div>
-                <div class="form-floating p-1 col-md-5">
+                <div class="form-floating mb-4">
                     <InputText @bind-Value="Model.MobileNumber" id="phoneNumber" class="form-control" placeholder="" />
-                    <label for="phoneNumber" class="form-label"> Phone Number</label>
+                    <label for="phoneNumber"> Phone Number</label>
                 </div>
 
                 <div class="form-floating mb-4">
@@ -47,49 +49,61 @@
                     <label for="confirm-password"> Password Confirmation</label>
                     <ValidationMessage For="() => Model.ConfirmPassword" />
                 </div>
-                <div class="col-12 @(_errorList.Any() ? string.Empty : "d-none")"> 
+                @*                 <div class="col-12 @(_errorList.Any() ? string.Empty : "d-none")">
                 <div class="alert alert-warning">
-                    @foreach (var error in _errorList ) {
-                        <span> @error</span>
-                    }
-                    </div>
+                @foreach (var error in _errorList)
+                {
+                <span> @error</span>
+                }
                 </div>
+                </div> *@
                 <button type="submit" class="btn btn-outline-light btn-block btn-lg fs-6 fw-bolder py-3 w-100">Sign In</button>
-                </EditForm>
-            </div>
-            <div class="text-center  mt-4"> 
-                <p class="text-white "> You Have An Account 
-                <NavLink href="login" style="color:greenyellow">Log In </NavLink>    
-                </p>
-            </div>
+            </EditForm>
+        </div>
+        <div class="text-center  mt-4">
+            <p class="text-white ">
+                You Have An Account
+                <NavLink href="login" style="color:greenyellow">Log In </NavLink>
+            </p>
         </div>
     </div>
+</div>
 @code {
-    [SupplyParameterFromForm]
+
     private RegistrationDto? Model { get; set; }
-    private string[] _errorList = [];
-    protected override void OnInitialized() => Model ??= new();
-    private async Task Submit() {
-        //Sumbit Form logic
+
+    private string _errorList = string.Empty;
+
+    protected override async Task OnInitializedAsync() => Model ??= new();
+
+    private async Task OnSubmit()
+    {
+        Model.Username = Model.Email;
+        Model.UserType = UserType.Client;
+
         var result = await gateway.RegisterAsync(Model);
-        if ( result.Succeeded ) {
-            Navigation.NavigateTo("login");
+
+        if (result.Succeeded)
+        {
+            Navigation.NavigateTo("/login", true);
         }
-        else {
+        else
+        {
             _errorList = result.ErrorList;
         }
     }
 
 }
 <style>
-    .validation-message{
+    .validation-message {
         color: yellow;
     }
 
-    .invalid{
-       outline: 3px solid yellow;
+    .invalid {
+        outline: 3px solid yellow;
     }
-    .bg-green-gradient{
+
+    .bg-green-gradient {
         background-image: linear-gradient(180deg, #00760a 0%, #003323 90%);
     }
-    </style>
+</style>

@@ -2,7 +2,7 @@
 
 
 <PageTitle>Drivers</PageTitle>
-
+@* 
 <div class="container mt-5">
     <h2 class="text-center mb-4">Drivers</h2>
 
@@ -46,20 +46,20 @@
         </table>
     }
 </div>
-
+ *@
 @code {
-    private List<Shared.Requests.Driver> Drivers;
-    [Inject]
-    private IDriverGateway gateway { get; set; }
-    protected override async Task OnInitializedAsync()
-    {
-        Drivers = await LoadDrivers();
-    }
-    private async Task<List<Shared.Requests.Driver>> LoadDrivers()
-    {
-        var list = await gateway.GetAllDriversAsync();
-        return list;
-    }
+    // private List<Shared.Requests.Driver> Drivers;
+    // [Inject]
+    // private IDriverGateway gateway { get; set; }
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     Drivers = await LoadDrivers();
+    // }
+    // private async Task<List<Shared.Requests.Driver>> LoadDrivers()
+    // {
+    //     var list = await gateway.GetAllDriversAsync();
+    //     return list;
+    // }
     private async Task AcceptDriver(int tripId)
     {
         // Logic to accept the trip

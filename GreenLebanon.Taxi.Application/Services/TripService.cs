@@ -25,7 +25,7 @@ namespace GreenLebanon.Taxi.Application.Services
                 Destination = request.Destination,
                 StartingPoint = request.StartingPoint,
                 Region = request.Region,
-                Timing = request.Timing,
+                Timing = TimeOnly.FromDateTime(request.Timing),
                 DriverId = availableDriver.UserId,
                 Status = Status.Pending,
                 ClientId = request.ClientId,

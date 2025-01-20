@@ -9,7 +9,6 @@ namespace GreenLebanon.Taxi.Shared.Requests
 {
     public class AddTripRequest
     {
-        public int Id { get; set; }
         [Required]
         public string StartingPoint { get; set; }
         [Required]
@@ -17,7 +16,7 @@ namespace GreenLebanon.Taxi.Shared.Requests
         [Required]
         public string Region { get; set; }
         [Required]
-        public TimeOnly Timing { get; set; }
+        public DateTime Timing { get; set; }
 
         public string ClientId { get; set; }
     }

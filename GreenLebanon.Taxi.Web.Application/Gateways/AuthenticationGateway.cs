@@ -1,4 +1,5 @@
-﻿using GreenLebanon.Taxi.Shared.Requests;
+﻿using Blazored.LocalStorage;
+using GreenLebanon.Taxi.Shared.Requests;
 using GreenLebanon.Taxi.Web.Infrastructure.Gateways;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Json;
@@ -8,73 +9,70 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
 {
     public class AuthenticationGateway : IAuthenticationGateway
     {
+        private readonly ILocalStorageService localStorageService;
         public readonly HttpClient _httpClient;
-        public AuthenticationGateway( HttpClient httpClient )
+        public AuthenticationGateway(ILocalStorageService localStorageService, HttpClient httpClient)
         {
-            httpClient = _httpClient;
+            this.localStorageService = localStorageService;
+            _httpClient = httpClient;
         }
-        public Task<AuthResult> LoginAsync(LoginDto model )
+        public async Task<AuthResult> LoginAsync(LoginDto model)
         {
-           throw new NotImplementedException();
-        }
-
-        public async Task<AuthResult> RegisterAsync( RegistrationDto model )
-        {
-            string[] DefaultErrors = ["Unknown Error! Prevented Registiration"];
             try
             {
-                var result = await _httpClient.PostAsJsonAsync("account/register", new
+                var result = await _httpClient.PostAsJsonAsync("/account/login", model);
+
+                if (result.IsSuccessStatusCode)
                 {
-                    Email = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Password = model.Password,
-                    ConfirmPassword = model.ConfirmPassword,
-                    MobileNumber = model.MobileNumber,
-                    Location = model.Location,
-                    UserType = 2
-                });
-                if ( result.IsSuccessStatusCode )
-                {
+                    var responseAsString = await result.Content.ReadAsStringAsync();
+
+                    var token = JsonSerializer.Deserialize<UserLoginResponse>(responseAsString, JsonSerializerOptions.Default);
+
+                    await localStorageService.SetItemAsync("AuthToken", token.Token);
+
                     return new AuthResult { Succeeded = true };
                 }
-                var details = await result.Content.ReadAsStringAsync();
-                var problemDetails = JsonDocument.Parse(details);
 
-                var Errors = new List<string>();
-                var ErrorList = problemDetails.RootElement.GetProperty("errors");
-                foreach ( var error in ErrorList.EnumerateObject() )
-                {
-
-                    if ( error.Value.ValueKind == JsonValueKind.String )
-                    {
-                        Errors.Add(error.Value.GetString()!);
-                    }
-                    else if ( error.Value.ValueKind == JsonValueKind.Array )
-                    {
-                        var AllErrors = error.Value
-                            .EnumerateArray()
-                            .Select(e => e.GetString() ?? string.Empty)
-                            .Where(e => !string.IsNullOrEmpty(e));
-
-                        Errors.AddRange(AllErrors);
-                    }
-                }
                 return new AuthResult
                 {
                     Succeeded = false,
-                    ErrorList = [.. Errors]
                 };
             }
-            catch
+            catch (Exception ex)
             {
+                return new AuthResult
+                {
+                    Succeeded = false,
+                    ErrorList = ex.ToString()
+                };
             }
-            return new AuthResult
+        }
+
+        public async Task<AuthResult> RegisterAsync(RegistrationDto model)
+        {
+            try
             {
-                Succeeded = false,
-                ErrorList = [.. DefaultErrors]
-            };
+                var result = await _httpClient.PostAsJsonAsync("/account/register", model);
+
+                if (result.IsSuccessStatusCode)
+                {
+                    return new AuthResult { Succeeded = true };
+                }
+
+                return new AuthResult
+                {
+                    Succeeded = false,
+                };
+            }
+            catch (Exception ex) 
+            {
+                return new AuthResult
+                {
+                    Succeeded = false,
+                    ErrorList = ex.ToString()
+                };
+            }
         }
     }
 }
-  
+

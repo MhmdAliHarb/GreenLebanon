@@ -15,23 +15,23 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
 {
     class DriverGateway : IDriverGateway
     {
-        private readonly HttpClient httpClient;
-        private readonly ILocalStorageService localStorageService;
+        private readonly HttpClient _httpClient;
+        private readonly ILocalStorageService _localStorageService;
 
         private string token = string.Empty;
 
         public DriverGateway( HttpClient client, ILocalStorageService localStorageService )
         {
-            this.httpClient = client;
+            _httpClient = client;
 
-            this.localStorageService = localStorageService;
+            _localStorageService = localStorageService;
 
-            token = localStorageService.GetItemAsync<string>("authToken").Result ?? string.Empty;
+            token = _localStorageService.GetItemAsync<string>("AuthToken").Result ?? string.Empty;
         }
 
         public async Task<int> AddNewDriverAsync( RegistrationDto request)
         {
-            var result = await httpClient.PostAsJsonAsync<RegistrationDto>("api/Drivers", request);
+            var result = await _httpClient.PostAsJsonAsync<RegistrationDto>("api/Drivers", request);
 
             return int.Parse(await result.Content.ReadAsStringAsync());
         }
@@ -41,18 +41,18 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
             throw new NotImplementedException();
         }
 
-        public async Task<List<Shared.Requests.Driver>> GetAllDriversAsync()
-        {
-            if ( !string.IsNullOrEmpty(token) )
-            {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            }
-            var result = await httpClient.GetAsync("/api/Drivers");
-            if ( result.IsSuccessStatusCode )
-            {
-                return await result.Content.ReadFromJsonAsync<List<Shared.Requests.Driver>>();
-            }
-            throw new Exception("Error retrieving client data");
-        }
+        //public async Task<List<GreenLebanon.Taxi.Shared.Requests.Driver>> GetAllDriversAsync()
+        //{
+        //    if ( !string.IsNullOrEmpty(token) )
+        //    {
+        //        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        //    }
+        //    var result = await httpClient.GetAsync("/api/Drivers");
+        //    if ( result.IsSuccessStatusCode )
+        //    {
+        //        return await result.Content.ReadFromJsonAsync<List<Shared.Requests.Driver>>();
+        //    }
+        //    throw new Exception("Error retrieving client data");
+        //}
     }
 }

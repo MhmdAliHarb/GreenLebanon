@@ -1,39 +1,44 @@
 ﻿@page "/add-trip"
-@using GreenLebanon.Taxi.ApplicationCore.Entities
+
 @using GreenLebanon.Taxi.Shared.Requests
 @using GreenLebanon.Taxi.Web.Infrastructure.Gateways
+
 @inject ITripGateway TripGateway
 @inject NavigationManager Manager
 
 <PageTitle> New Trip</PageTitle>
+
 <div class="container mt-3 vh-75">
     <div class="card shadow-lg">
         <div class="card-header bg-special text-white">
             <h4 class="mb-0">Add New Trip</h4>
         </div>
-        <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="fromLocation" class="form-label">From</label>
-                    <InputText @bind-Value="request.StartingPoint" id="fromLocation" class="form-control" placeholder="" />
-                </div>
-                <div class="col-md-6">
-                    <label for="toLocation" class="form-label">To</label>
-                    <InputText @bind-Value="request.Destination" id="toLocation" class="form-control" placeholder="" />
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="tripTime" class="form-label">Time</label>
-                <InputDate @bind-Value="request.Timing" id="tripTime" class="form-control" />
-            </div>
-            <div>
-            
-            <div class="text-center">
-                <button class="btn bg-special">Submit</button>
-            </div></div>
+        <EditForm Model="request" OnSubmit="OnSave">
             <DataAnnotationsValidator />
-            <ValidationSummary />
-        </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="fromLocation" class="form-label">From</label>
+                        <InputText @bind-Value="request.StartingPoint" id="fromLocation" class="form-control" placeholder="" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="toLocation" class="form-label">To</label>
+                        <InputText @bind-Value="request.Destination" id="toLocation" class="form-control" placeholder="" />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="tripTime" class="form-label">Time</label>
+                    <InputDate @bind-Value="request.Timing" id="tripTime" class="form-control" />
+                </div>
+                <div>
+
+                    <div class="text-center">
+                        <button class="btn bg-special">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </EditForm>
+
     </div>
 </div>
 
@@ -51,8 +56,8 @@
         font-weight: bold;
     }
 
-   
-    .bg-special{
+
+    .bg-special {
         background-color: #015023;
         color: white;
     }
@@ -63,20 +68,18 @@
 </style>
 
 @code {
-    private AddTripRequest? request;
 
-    protected override void OnInitialized() => request ??= new();
+    private AddTripRequest? request { get; set; }
 
-    private async Task SaveTripAsync(AddTripRequest request )
+    protected override async Task OnInitializedAsync() => request ??= new();
+
+    private async Task OnSave()
     {
         await TripGateway.AddNewTripAsync(request, CancellationToken.None);
     }
-    private async void submit()
-    {
-        await SaveTripAsync(request);
-    }
 
-    private void AddPointsOnMap() {
+    private void AddPointsOnMap()
+    {
         // Logic to add points on Google Maps
     }
 }

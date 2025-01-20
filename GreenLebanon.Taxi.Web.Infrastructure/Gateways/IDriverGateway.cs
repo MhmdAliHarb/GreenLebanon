@@ -1,4 +1,5 @@
-﻿using GreenLebanon.Taxi.Shared.Requests;
+﻿using GreenLebanon.Taxi.ApplicationCore.Entities;
+using GreenLebanon.Taxi.Shared.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace GreenLebanon.Taxi.Web.Infrastructure.Gateways
     {
         Task<int> AddNewDriverAsync( RegistrationDto request);
        Task<int> DeleteDriverAsync( RegistrationDto request);
-        Task<List<Driver>> GetAllDriversAsync();
+       // Task<List<Driver>> GetAllDriversAsync();
     }
 }

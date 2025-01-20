@@ -3,17 +3,18 @@ using GreenLebanon.Taxi.Application.Services;
 using GreenLebanon.Taxi.Shared.Requests;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-namespace GreenLebanon.Taxi.API.Controllers {
+namespace GreenLebanon.Taxi.API.Controllers
+{
     [ApiController]
-    [Route ("api/[controller]")]
-    public class TripsController(TripService tripService) : Controller {
-
+    [Route("api/[controller]")]
+    public class TripsController(TripService tripService) : Controller
+    {
         private readonly TripService tripService = tripService;
-       
+
         [HttpPost]
-        public async Task<IActionResult> AddTrip( [FromBody] AddTripRequest request )
+        public async Task<IActionResult> AddTrip([FromBody] AddTripRequest request)
         {
-            if ( !ModelState.IsValid )
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -21,13 +22,12 @@ namespace GreenLebanon.Taxi.API.Controllers {
             return Ok(await tripService.AddNewTripAsync(request));
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> GetAllTrips( [FromQuery] int? tripId ) 
+        public async Task<IActionResult> GetAllTrips([FromQuery] int? tripId)
         {
             var trips = await tripService.GetAllTripsAsync(tripId);
-    
-            if(!trips.Any())
+
+            if (!trips.Any())
             {
                 return NotFound();
             }
@@ -36,14 +36,14 @@ namespace GreenLebanon.Taxi.API.Controllers {
 
 
         [HttpGet("GetTripsByUserId")]
-        public async Task<IActionResult> GetTripsByUserId(  )
+        public async Task<IActionResult> GetTripsByUserId()
         {
             var clientId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if ( clientId == null )
+            if (clientId == null)
                 return Unauthorized();
 
-            var trips = string.Empty; 
-                //= await tripService.GetTripsByUserIdAsync(clientId);
+            var trips = string.Empty;
+            //= await tripService.GetTripsByUserIdAsync(clientId);
             return Ok(trips);
         }
 

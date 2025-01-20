@@ -7,6 +7,6 @@ namespace GreenLebanon.Taxi.Web.Infrastructure.Gateways
     {
         Task<int> AddNewTripAsync(AddTripRequest request , CancellationToken cancellationToken);
         Task<List<Trip>> GetTripsAsync( int? TripId, string status = null);
-        Task<List<Trip>> GetAllTripsAsync();
+        //Task<List<Trip>> GetAllTripsAsync();
     }
 }

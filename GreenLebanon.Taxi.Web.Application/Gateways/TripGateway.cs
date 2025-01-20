@@ -9,49 +9,52 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
 {
     public class TripGateway : ITripGateway
     {
-        private readonly HttpClient httpClient;
-        private readonly ILocalStorageService localStorageService;
+        private readonly HttpClient _httpClient;
+        private readonly ILocalStorageService _localStorageService;
 
-        private string token = string.Empty;
-
-        public TripGateway( HttpClient client, ILocalStorageService localStorageService )
+        public TripGateway(HttpClient client, ILocalStorageService localStorageService)
         {
-            this.httpClient = client;
+            _httpClient = client;
 
-            this.localStorageService = localStorageService;
-
-            token = localStorageService.GetItemAsync<string>("authToken").Result ?? string.Empty;
+            _localStorageService = localStorageService;
         }
 
-        public Task<List<Trip>> GetTripsAsync( int? TripId, string status = null )
+        public Task<List<Trip>> GetTripsAsync(int? TripId, string status = null)
         {
             throw new NotImplementedException();
         }
 
-        async Task<int> ITripGateway.AddNewTripAsync( AddTripRequest request, CancellationToken cancellationToken )
+        private async Task<string> GetAccessTokenAsync()
         {
-            if ( !string.IsNullOrEmpty(token) )
+            return await _localStorageService.GetItemAsync<string>("AuthToken");
+        }
+
+        async Task<int> ITripGateway.AddNewTripAsync(AddTripRequest request, CancellationToken cancellationToken)
+        {
+            string token = await GetAccessTokenAsync();
+
+            if (!string.IsNullOrEmpty(token))
             {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
 
-            var result = await httpClient.PostAsJsonAsync<AddTripRequest>("/api/Trips", request, cancellationToken);
+            var result = await _httpClient.PostAsJsonAsync<AddTripRequest>("/api/Trips", request, cancellationToken);
 
             return int.Parse(await result.Content.ReadAsStringAsync());
         }
 
-        async Task<List<Trip>> ITripGateway.GetAllTripsAsync()
-        {
-            if ( !string.IsNullOrEmpty(token) )
-            {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            }
-            var result = await httpClient.GetAsync("/api/Trips");
-            if ( result.IsSuccessStatusCode )
-            {
-                return await result.Content.ReadFromJsonAsync<List<Trip>>();
-            }
-            throw new Exception("Error retrieving client data"); 
-        }
+        //async Task<List<Trip>> ITripGateway.GetAllTripsAsync()
+        //{
+        //    if (!string.IsNullOrEmpty(token))
+        //    {
+        //        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        //    }
+        //    var result = await _httpClient.GetAsync("/api/Trips");
+        //    if (result.IsSuccessStatusCode)
+        //    {
+        //        return await result.Content.ReadFromJsonAsync<List<Trip>>();
+        //    }
+        //    throw new Exception("Error retrieving client data");
+        //}
     }
 }

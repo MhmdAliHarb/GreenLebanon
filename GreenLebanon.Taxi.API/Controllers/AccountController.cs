@@ -1,9 +1,11 @@
 ﻿using GreenLebanon.Taxi.Application.Services;
 using GreenLebanon.Taxi.Shared.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreenLebanon.Taxi.API.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : ControllerBase
     {
         private readonly AccountService accountService;
@@ -13,8 +15,7 @@ namespace GreenLebanon.Taxi.API.Controllers
             this.accountService = accountService;
         }
 
-        [HttpPost]
-        [Route("account/register")]
+        [HttpPost("account/register")]
         public async Task<IActionResult> Register([FromBody] RegistrationDto model)
         {
             if (!ModelState.IsValid)
@@ -32,8 +33,7 @@ namespace GreenLebanon.Taxi.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        [Route("account/login")]
+        [HttpPost("account/login")]
         public async Task<IActionResult> Login([FromBody] LoginDto model)
         {
             if (!ModelState.IsValid)
@@ -51,8 +51,7 @@ namespace GreenLebanon.Taxi.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        [Route("account/role")]
+        [HttpPost("account/role")]
         public async Task<IActionResult> AddRole([FromBody] RolesDto roles)
         {
             if (!ModelState.IsValid)
@@ -65,8 +64,7 @@ namespace GreenLebanon.Taxi.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        [Route("account/roles/all")]
+        [HttpGet("account/roles/all")]
         public async Task<IActionResult> GetAllRoles()
         {
             var result = await this.accountService.GetAllRoles();

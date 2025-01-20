@@ -81,36 +81,19 @@ namespace GreenLebanon.Taxi.API
                 .AddPolicy("ApiUser", policy => policy.RequireClaim("rol", "api_access"));
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
-
-            builder.Services.AddCors(options =>
-                 options.AddDefaultPolicy(builder =>
-                        builder
-                       .AllowAnyMethod()
-                       .AllowAnyHeader()
-                       .WithOrigins("https://localhost:7241")
-                       .AllowCredentials()
-           )
-          );
-
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+            
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            //if ( app.Environment.IsDevelopment() ) {
-            //    app.UseSwagger();
-            //    app.UseSwaggerUI(options => {
-            //        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-            //        options.RoutePrefix = string.Empty;
+            app.UseCors(opt => opt.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
 
-            //    });
-            //}
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseCors();
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
