@@ -110,6 +110,7 @@ namespace GreenLebanon.Taxi.API
                     configureOptions.SaveToken = true;
                 });
 
+            builder.Services.AddAuthorization();
             builder.Services.AddAuthorizationBuilder()
                 .AddPolicy("ApiUser", policy => policy.RequireClaim("rol", "api_access"));
 
