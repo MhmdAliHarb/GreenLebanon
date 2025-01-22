@@ -12,7 +12,6 @@ namespace GreenLebanon.Taxi.API.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager = userManager;
 
-        [Authorize]
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetUser(string userId)
         {
