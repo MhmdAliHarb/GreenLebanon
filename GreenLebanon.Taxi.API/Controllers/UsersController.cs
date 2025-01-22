@@ -8,11 +8,11 @@ namespace GreenLebanon.Taxi.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class UsersController(UserManager<ApplicationUser> userManager) : ControllerBase
     {
         private readonly UserManager<ApplicationUser> userManager = userManager;
 
+        [Authorize]
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetUser(string userId)
         {

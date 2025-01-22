@@ -4,7 +4,7 @@ using GreenLebanon.Taxi.Infrastructure.Data;
 
 namespace GreenLebanon.Taxi.Infrastructure.Repositories
 {
-    class TripRepository : ITripRepository
+    public class TripRepository : ITripRepository
     {
         private readonly AppDbContext appDbContext;
 

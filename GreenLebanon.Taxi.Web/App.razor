@@ -1,18 +1,27 @@
-﻿<CascadingAuthenticationState>
+﻿@using GreenLebanon.Taxi.Web.Pages.Auth
+<CascadingAuthenticationState>
     <Router AppAssembly="@typeof(App).Assembly">
         <Found Context="routeData">
-           <AuthorizeView Context="AuthState">
-               <Authorized>
-                    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-               </Authorized>
-               <NotAuthorized>
-                    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
-                       <NotAuthorized>
-                        <RedirectIntoLogin />
-                    </NotAuthorized>    
-                    </AuthorizeRouteView>
-               </NotAuthorized>
-           </AuthorizeView>
+
+            @if (routeData.PageType == typeof(Login))
+            {
+                <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            }
+            else
+            {
+                <AuthorizeView Context="AuthState">
+                    <Authorized>
+                        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+                    </Authorized>
+                    <NotAuthorized>
+                        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                            <NotAuthorized>
+                                <RedirectIntoLogin />
+                            </NotAuthorized>
+                        </AuthorizeRouteView>
+                    </NotAuthorized>
+                </AuthorizeView>
+            }
             <FocusOnNavigate RouteData="@routeData" Selector="h1" />
         </Found>
         <NotFound>

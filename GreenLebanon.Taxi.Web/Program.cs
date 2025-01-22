@@ -31,6 +31,7 @@ namespace GreenLebanon.Taxi.Web
             builder.Services.AddBlazoredLocalStorageAsSingleton();
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<AuthenticationStateProvider, TokenAuthenticationStateProvider>();
+            builder.Services.AddScoped<TokenAuthenticationStateProvider>();
 
             await builder.Build().RunAsync();
         }

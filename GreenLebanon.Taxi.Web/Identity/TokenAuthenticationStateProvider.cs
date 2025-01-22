@@ -39,13 +39,12 @@ namespace GreenLebanon.Taxi.Web.Identity
                 var expClaim = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type == "exp")?.Value;
                 if (expClaim != null && DateTime.UtcNow > DateTimeOffset.FromUnixTimeSeconds(long.Parse(expClaim)).UtcDateTime)
                 {
-                    return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+                    throw new UnauthorizedAccessException();
                 }
 
                 var userId = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                var userResponseMessage = await _httpClient.GetAsync($"/api/users/{userId}");
+                _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+                var userResponseMessage = await _httpClient.GetAsync($"/api/Users/{userId}");
                 userResponseMessage.EnsureSuccessStatusCode();
 
                 var userResponseMessageAsString = await userResponseMessage.Content.ReadAsStringAsync();
@@ -69,7 +68,7 @@ namespace GreenLebanon.Taxi.Web.Identity
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in GetAuthenticationStateAsync: {ex.Message}");
-                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+                throw new UnauthorizedAccessException(ex.ToString());
             }
         }
 

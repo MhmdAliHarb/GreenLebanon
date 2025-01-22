@@ -25,16 +25,19 @@ namespace GreenLebanon.Taxi.API
             // Add services to the container.
             builder.Services.AddScoped<AppDbContext>();
 
+            builder.Services.AddScoped<IDriverRepository, DriverRepository>();
+            builder.Services.AddScoped<ITripRepository, TripRepository>();
             builder.Services.AddScoped<IClientRepository, ClientRepository>();
             builder.Services.AddScoped<ClientService>();
             builder.Services.AddScoped<AccountService>();
+            builder.Services.AddScoped<TripService>();
 
             builder.Services.AddScoped<IJwtFactory, JwtFactory>();
 
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-                options.JsonSerializerOptions.WriteIndented = true;
+                options.JsonSerializerOptions.WriteIndented = true; 
             });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
@@ -111,24 +114,31 @@ namespace GreenLebanon.Taxi.API
                 });
 
             builder.Services.AddAuthorization();
-            builder.Services.AddAuthorizationBuilder()
-                .AddPolicy("ApiUser", policy => policy.RequireClaim("rol", "api_access"));
+            //builder.Services.AddAuthorizationBuilder()
+            //    .AddPolicy("ApiUser", policy => policy.RequireClaim("rol", "api_access"));
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin", policy =>
+                {
+                    policy.WithOrigins("https://localhost:7190") // Replace with your Blazor app's URL
+                          .AllowAnyHeader()
+                          .AllowAnyMethod(); 
+                });
+            });
             var app = builder.Build();
-
-            app.UseCors(opt => opt.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
 
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
             app.UseRouting();
+            app.UseCors("AllowSpecificOrigin");
             app.UseAuthentication(); // If you're using authentication
             app.UseAuthorization();  // If you're using authorization
             app.UseEndpoints(endpoints =>

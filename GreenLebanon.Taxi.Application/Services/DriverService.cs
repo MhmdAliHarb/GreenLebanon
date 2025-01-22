@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreenLebanon.Taxi.Application.Services
 {
-    internal class DriverService
+    public class DriverService
     {
     }
 }

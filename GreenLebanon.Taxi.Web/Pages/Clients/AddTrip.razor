@@ -5,6 +5,7 @@
 
 @inject ITripGateway TripGateway
 @inject NavigationManager Manager
+@inject TokenAuthenticationStateProvider AuthenticationState
 
 <PageTitle> New Trip</PageTitle>
 
@@ -24,6 +25,10 @@
                     <div class="col-md-6">
                         <label for="toLocation" class="form-label">To</label>
                         <InputText @bind-Value="request.Destination" id="toLocation" class="form-control" placeholder="" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="region" class="form-label">Region</label>
+                        <InputText @bind-Value="request.Region" id="region" class="form-control" placeholder="" />
                     </div>
                 </div>
                 <div class="mb-3">
@@ -68,13 +73,16 @@
 </style>
 
 @code {
-
-    private AddTripRequest? request { get; set; }
+    private AddTripRequest? request { get; set; } = new();
 
     protected override async Task OnInitializedAsync() => request ??= new();
 
     private async Task OnSave()
     {
+        var authState = await AuthenticationState.GetAuthenticationStateAsync();
+
+        request.ClientId = authState.User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+
         await TripGateway.AddNewTripAsync(request, CancellationToken.None);
     }
 
