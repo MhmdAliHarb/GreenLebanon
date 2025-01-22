@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace GreenLebanon.Taxi.Application.Services
@@ -93,34 +94,15 @@ namespace GreenLebanon.Taxi.Application.Services
             return userRoles;
         }
 
-        private async Task<string> GetRoleName(UserType userType)
-        {
-            string? role = string.Empty;
-
-            switch (userType)
-            {
-                case UserType.Admin:
-                    role = (await roleManager.Roles.FirstOrDefaultAsync(x => x.Name.Equals("admin"))).Name;
-                    break;
-                case UserType.Client:
-                    role = (await roleManager.Roles.FirstOrDefaultAsync(x => x.Name.Equals("client"))).Name;
-                    break;
-                case UserType.Driver:
-                    role = (await roleManager.Roles.FirstOrDefaultAsync(x => x.Name.Equals("driver"))).Name;
-                    break;
-                default:
-                    break;
-            }
-
-            return role;
-        }
-
         private async Task<object> GenerateJwtToken(ApplicationUser user)
         {
             var userClaims = await this.userManager.GetClaimsAsync(user);
+            userClaims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
+            userClaims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
+            userClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("JwtIssuerOptions:SecretKey").Value));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddDays(Convert.ToDouble(configuration.GetSection("JwtIssuerOptions:Expires").Value));
+            var expires = DateTime.Now.AddMinutes(Convert.ToDouble(configuration.GetSection("JwtIssuerOptions:Expires").Value));
             var token = new JwtSecurityToken(
                 configuration.GetSection("JwtIssuerOptions:Issuer").Value,
                 configuration.GetSection("JwtIssuerOptions:Issuer").Value,

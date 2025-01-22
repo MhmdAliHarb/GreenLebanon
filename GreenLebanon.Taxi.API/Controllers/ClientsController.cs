@@ -1,9 +1,11 @@
 ﻿using GreenLebanon.Taxi.Application.Services;
 using GreenLebanon.Taxi.Shared.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreenLebanon.Taxi.API.Controllers
 {
+    [Authorize(Roles ="Client")]
     [ApiController]
     [Route("api/[controller]")]
     public class ClientsController(ClientService clientService) : ControllerBase

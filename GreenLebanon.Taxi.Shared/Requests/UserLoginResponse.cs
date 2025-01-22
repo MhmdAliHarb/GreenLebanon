@@ -5,10 +5,10 @@ namespace GreenLebanon.Taxi.Shared.Requests
 {
     public class UserLoginResponse
     {
-        [JsonPropertyName("token")]
+        //[JsonPropertyName("token")]
         public string Token { get; set; }
 
-        [JsonPropertyName("roles")]
+        //[JsonPropertyName("roles")]
         public List<string> Roles { get; set; }
     }
 }

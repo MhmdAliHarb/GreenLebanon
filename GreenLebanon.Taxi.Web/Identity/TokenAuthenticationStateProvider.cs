@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Text.Json.Nodes;
 
 namespace GreenLebanon.Taxi.Web.Identity
@@ -27,16 +28,49 @@ namespace GreenLebanon.Taxi.Web.Identity
 
             if (string.IsNullOrWhiteSpace(token))
             {
-                var user = new ClaimsPrincipal(new ClaimsIdentity());
-
-                return new AuthenticationState(user);
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             }
 
-            //var claims = ParseClaimsFromJwt(token); 
-            var handler = new JwtSecurityTokenHandler();
-            var jwtSecurityToken = handler.ReadJwtToken(token);
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var jwtSecurityToken = handler.ReadJwtToken(token);
 
-            return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+                var expClaim = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type == "exp")?.Value;
+                if (expClaim != null && DateTime.UtcNow > DateTimeOffset.FromUnixTimeSeconds(long.Parse(expClaim)).UtcDateTime)
+                {
+                    return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+                }
+
+                var userId = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                var userResponseMessage = await _httpClient.GetAsync($"/api/users/{userId}");
+                userResponseMessage.EnsureSuccessStatusCode();
+
+                var userResponseMessageAsString = await userResponseMessage.Content.ReadAsStringAsync();
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    PropertyNameCaseInsensitive = true
+                };
+                var jsonResponse = JsonSerializer.Deserialize<ApplicationUserForView>(userResponseMessageAsString, options);
+
+                var identity = new ClaimsIdentity(new[]
+                {
+            new Claim(ClaimTypes.Name, jsonResponse.FirstName),
+            new Claim(ClaimTypes.Email, jsonResponse.Email),
+            new Claim(ClaimTypes.Role, jsonResponse.Role ?? "Guest")
+        }, "jwt");
+
+                var user = new ClaimsPrincipal(identity);
+                return new AuthenticationState(user);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAuthenticationStateAsync: {ex.Message}");
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+            }
         }
 
         public async Task<UserLoginResponse> Login(LoginDto loginDto)
