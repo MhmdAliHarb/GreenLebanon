@@ -1,5 +1,5 @@
 ﻿@page "/"
-
+@attribute [Authorize]
 @inject NavigationManager NavigationManger
 
 <PageTitle>Home</PageTitle>
@@ -24,6 +24,8 @@
         <button class="btn btn-History btn-lg" @onclick="ViewHistory">View Your Previous Trips</button>
     </div>
 </div>
+
+
 
 @code {
 
