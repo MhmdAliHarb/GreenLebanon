@@ -47,30 +47,7 @@
     </div>
 </div>
 
-<style>
-    .container {
-        max-width: 600px;
-    }
 
-    .card {
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .form-label {
-        font-weight: bold;
-    }
-
-
-    .bg-special {
-        background-color: #015023;
-        color: white;
-    }
-
-    .btn-secondary {
-        margin-right: 10px;
-    }
-</style>
 
 @code {
     private AddTripRequest? request { get; set; } = new();
@@ -86,8 +63,29 @@
         await TripGateway.AddNewTripAsync(request, CancellationToken.None);
     }
 
-    private void AddPointsOnMap()
-    {
-        // Logic to add points on Google Maps
-    }
+  
 }
+<style>
+     .container {
+         max-width: 600px;
+     }
+
+     .card {
+         border-radius: 10px;
+         overflow: hidden;
+     }
+
+     .form-label {
+         font-weight: bold;
+     }
+
+
+     .bg-special {
+         background-color: #015023;
+         color: white;
+     }
+
+     .btn-secondary {
+         margin-right: 10px;
+     }
+</style>

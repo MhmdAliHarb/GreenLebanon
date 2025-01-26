@@ -4,7 +4,7 @@
         <Found Context="routeData">
             @if (routeData.PageType == typeof(Login))
             {
-                <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+                <RouteView RouteData="@routeData" DefaultLayout="@typeof(AuthLayout)" />
             }
             else
             {
@@ -13,7 +13,7 @@
                         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
                     </Authorized>
                     <NotAuthorized>
-                        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(AuthLayout)">
                             <NotAuthorized>
                                 <RedirectIntoLogin />
                             </NotAuthorized>
@@ -25,7 +25,7 @@
         </Found>
         <NotFound>
             <PageTitle>Not found</PageTitle>
-            <LayoutView Layout="@typeof(MainLayout)">
+            <LayoutView Layout="@typeof(AuthLayout)">
                 <p role="alert">Sorry, there's nothing at this address.</p>
             </LayoutView>
         </NotFound>
