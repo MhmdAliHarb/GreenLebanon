@@ -1,6 +1,7 @@
 ﻿using GreenLebanon.Taxi.ApplicationCore.Entities;
 using GreenLebanon.Taxi.ApplicationCore.Repositories;
 using GreenLebanon.Taxi.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace GreenLebanon.Taxi.Infrastructure.Repositories
 {
@@ -8,25 +9,24 @@ namespace GreenLebanon.Taxi.Infrastructure.Repositories
     {
         private readonly AppDbContext appDbContext;
 
-        public TripRepository( AppDbContext appDbContext )
+        public TripRepository(AppDbContext appDbContext)
         {
             this.appDbContext = appDbContext;
         }
-        public async Task<int> AddTripAsync( Trip trip )
+        public async Task<int> AddTripAsync(Trip trip)
         {
             appDbContext.Trips.Add(trip);
             return await appDbContext.SaveChangesAsync();
         }
 
-        public async Task<IQueryable<Trip>> GetAllTripsAsync( int? tripId = null )
+        public async Task<Trip> GetTripByIdAsync(int tripId, string userId)
         {
-            if ( tripId.HasValue )
-            {
-                return appDbContext.Trips.Where(x => tripId.HasValue && x.Id == tripId.Value);
-            }
-            return appDbContext.Trips.AsQueryable();
+            return await appDbContext.Trips.FirstOrDefaultAsync(x => x.Id == tripId && x.ClientId == userId);
         }
 
-       
+        public async Task<IQueryable<Trip>> GetAllTripsAsync(string userId)
+        {
+            return appDbContext.Trips.Where(x => x.ClientId == userId);
+        }
     }
 }

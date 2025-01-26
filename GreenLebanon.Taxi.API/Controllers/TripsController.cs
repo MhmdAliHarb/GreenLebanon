@@ -23,10 +23,12 @@ namespace GreenLebanon.Taxi.API.Controllers
             return Ok(await tripService.AddNewTripAsync(request));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllTrips([FromQuery] int? tripId)
+        [HttpGet("all/{userId}")]
+        public async Task<IActionResult> GetAllTrips(string userId)
         {
-            var trips = await tripService.GetAllTripsAsync(tripId);
+            var clientId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var trips = await tripService.GetAllTripsAsync(userId);
 
             if (!trips.Any())
             {

@@ -34,8 +34,7 @@
                                 <td>@trip.StartingPoint</td>
                                 <td>@trip.Destination</td>
                                 <td>@trip.Timing</td>
-                                <td>@trip.Driver</td>
-                                <td>@trip.Client</td>
+                                <td>@trip.ClientName</td>
                             </tr>
                         }
                     </tbody>
@@ -52,16 +51,16 @@
 </div>
 
 @code {
-    private List<Trip>? trips;
+    private List<TripForView>? trips;
 
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     //trips = await LoadTripsAsync();
-    // }
-    // private async Task<List<Trip>> LoadTripsAsync()
-    // {
-    //     var list = await gateway.GetAllTripsAsync();
-    //     return list;       
-    // }
+    protected override async Task OnInitializedAsync()
+    {
+        trips = await LoadTripsAsync();
+    }
+    private async Task<List<TripForView>> LoadTripsAsync()
+    {
+        var list = await gateway.GetAllTripsAsync("");
+        return list;       
+    }
 
 }

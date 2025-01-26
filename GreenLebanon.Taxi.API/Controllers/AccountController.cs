@@ -1,7 +1,12 @@
 ﻿using GreenLebanon.Taxi.Application.Services;
 using GreenLebanon.Taxi.Shared.Requests;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace GreenLebanon.Taxi.API.Controllers
 {
