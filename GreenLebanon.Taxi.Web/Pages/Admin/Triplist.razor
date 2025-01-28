@@ -17,7 +17,7 @@
             }
             else if ( trips.Any() )
             {
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover  ">
                     <thead class="table-sm">
                         <tr>
                             <th>From</th>
@@ -25,17 +25,19 @@
                             <th>Time</th>
                             <th>Driver Name</th>
                             <th> Client Name</th>
+                            <th> Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ( var trip in trips )
                         {
-                            <tr>
+                            <tr class="@trip.Status">
                                 <td>@trip.StartingPoint</td>
                                 <td>@trip.Destination</td>
                                 <td>@trip.Timing</td>
                                 <td>@trip.Driver</td>
                                 <td>@trip.Client</td>
+                                <td> @trip.Status</td>
                             </tr>
                         }
                     </tbody>
@@ -54,14 +56,30 @@
 @code {
     private List<Trip>? trips;
 
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     //trips = await LoadTripsAsync();
-    // }
-    // private async Task<List<Trip>> LoadTripsAsync()
-    // {
-    //     var list = await gateway.GetAllTripsAsync();
-    //     return list;       
-    // }
 
+    protected override async Task OnInitializedAsync()
+    {
+        trips = await LoadTripsAsync();
+    }
+    private async Task<List<Trip>> LoadTripsAsync()
+    {
+
+        return trips = new List<Trip>
+        {
+            new Trip {StartingPoint="ha", Destination="ne" , Status = Status.Done}
+        };
+    }
 }
+<style>
+    .pending{
+        background-color: rgba(10,250,250,0.5);
+    }
+
+    .InProgress{
+        background-color: rgba(10, 10, 200, 0.5);
+    }
+
+    .Done{
+        background-color: rgba(10, 200, 10, 0.5);
+    }
+</style>
