@@ -1,5 +1,4 @@
 ﻿using Blazored.LocalStorage;
-using GreenLebanon.Taxi.ApplicationCore.Entities;
 using GreenLebanon.Taxi.Shared.Requests;
 using GreenLebanon.Taxi.Web.Infrastructure.Gateways;
 using System.Net.Http.Headers;
@@ -19,17 +18,12 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
             _localStorageService = localStorageService;
         }
 
-        public Task<List<Trip>> GetTripsAsync(int? TripId, string status = null)
-        {
-            throw new NotImplementedException();
-        }
-
         private async Task<string> GetAccessTokenAsync()
         {
             return await _localStorageService.GetItemAsync<string>("AuthToken");
         }
 
-        async Task<int> ITripGateway.AddNewTripAsync(AddTripRequest request, CancellationToken cancellationToken)
+        public async Task<int>  AddNewTripAsync(AddTripRequest request, CancellationToken cancellationToken)
         {
             string token = await GetAccessTokenAsync();
 
@@ -43,18 +37,17 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
             return int.Parse(await result.Content.ReadAsStringAsync());
         }
 
-        //async Task<List<Trip>> ITripGateway.GetAllTripsAsync()
-        //{
-        //    if (!string.IsNullOrEmpty(token))
-        //    {
-        //        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        //    }
-        //    var result = await _httpClient.GetAsync("/api/Trips");
-        //    if (result.IsSuccessStatusCode)
-        //    {
-        //        return await result.Content.ReadFromJsonAsync<List<Trip>>();
-        //    }
-        //    throw new Exception("Error retrieving client data");
-        //}
+        public async Task<List<TripForView>> GetTripsAsync(int? tripId, string status)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<TripForView>> GetAllTripsAsync(string userId)
+        {
+            var result = await _httpClient.GetAsync($"/api/all/Trips/{userId}");
+
+            throw new NotImplementedException();
+
+        }
     }
 }

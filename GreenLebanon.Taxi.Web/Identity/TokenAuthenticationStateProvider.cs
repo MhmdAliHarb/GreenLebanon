@@ -3,11 +3,10 @@ using GreenLebanon.Taxi.Shared.Requests;
 using GreenLebanon.Taxi.Web.Models;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Security.Claims;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace GreenLebanon.Taxi.Web.Identity
 {
@@ -31,76 +30,54 @@ namespace GreenLebanon.Taxi.Web.Identity
                 return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             }
 
-            try
+            var handler = new JwtSecurityTokenHandler();
+
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+
+            var expClaim = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type == "exp")?.Value;
+
+            if (jwtSecurityToken.ValidTo < DateTime.UtcNow)
             {
-                var handler = new JwtSecurityTokenHandler();
-                var jwtSecurityToken = handler.ReadJwtToken(token);
-
-                var expClaim = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type == "exp")?.Value;
-                if (expClaim != null && DateTime.UtcNow > DateTimeOffset.FromUnixTimeSeconds(long.Parse(expClaim)).UtcDateTime)
-                {
-                    throw new UnauthorizedAccessException();
-                }
-
-                var userId = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
-                _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-                var userResponseMessage = await _httpClient.GetAsync($"/api/Users/{userId}");
-                userResponseMessage.EnsureSuccessStatusCode();
-
-                var userResponseMessageAsString = await userResponseMessage.Content.ReadAsStringAsync();
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    PropertyNameCaseInsensitive = true
-                };
-                var jsonResponse = JsonSerializer.Deserialize<ApplicationUserForView>(userResponseMessageAsString, options);
-
-                var identity = new ClaimsIdentity(new[]
-                {
-            new Claim(ClaimTypes.Name, jsonResponse.FirstName),
-            new Claim(ClaimTypes.Email, jsonResponse.Email),
-            new Claim(ClaimTypes.Role, jsonResponse.Role ?? "Guest")
-        }, "jwt");
-
-                var user = new ClaimsPrincipal(identity);
-                return new AuthenticationState(user);
+                throw new UnauthorizedAccessException();
             }
-            catch (Exception ex)
+
+            var userId = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+
+            var jsonResponse = await GetUserInformation(userId, token);
+
+            return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(new[]
             {
-                Console.WriteLine($"Error in GetAuthenticationStateAsync: {ex.Message}");
-                throw new UnauthorizedAccessException(ex.ToString());
-            }
+                new Claim(ClaimTypes.NameIdentifier, jsonResponse.Email),
+                new Claim(ClaimTypes.Name, jsonResponse.FirstName),
+                new Claim(ClaimTypes.Surname, jsonResponse.LastName),
+                new Claim(ClaimTypes.Email, jsonResponse.Email),
+                new Claim(ClaimTypes.Role, jsonResponse.Role),
+                new Claim(JwtRegisteredClaimNames.Sub, jsonResponse.UserId),
+
+            })));
         }
-
-        public async Task<UserLoginResponse> Login(LoginDto loginDto)
+    
+        private async Task<ApplicationUserForView> GetUserInformation(string userId, string token)
         {
+            // Add the JWT token to the Authorization header
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             try
             {
-                var loginResponse = await _httpClient.PostAsJsonAsync("/account/login", loginDto);
+                // Send a GET request
+                HttpResponseMessage response = await _httpClient.GetAsync($"/api/Users/{userId}");
 
-                if (loginResponse.IsSuccessStatusCode)
-                {
-                    var responsAsString = await loginResponse.Content.ReadAsStringAsync();
+                // Ensure the request was successful
+                response.EnsureSuccessStatusCode();
 
-                    var jsonResponse = JsonNode.Parse(responsAsString);
+                // Read and process the response content
+                ApplicationUserForView responseContent = await response.Content.ReadFromJsonAsync<ApplicationUserForView>();
 
-                    var token = jsonResponse["access_token"]?.ToString();
-
-                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                    await _localStorageService.SetItemAsStringAsync("AuthToken", data: token);
-
-                    NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
-
-                    return new UserLoginResponse() { Token = token };
-                }
-
-                return null;
+                return responseContent;
             }
-            catch (Exception)
+            catch (HttpRequestException ex)
             {
-
-                throw;
+                throw ex;
             }
         }
     }

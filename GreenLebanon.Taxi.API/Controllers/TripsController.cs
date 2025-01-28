@@ -3,9 +3,10 @@ using GreenLebanon.Taxi.Application.Services;
 using GreenLebanon.Taxi.Shared.Requests;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 namespace GreenLebanon.Taxi.API.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/[controller]")]
     public class TripsController(TripService tripService) : Controller
@@ -23,10 +24,12 @@ namespace GreenLebanon.Taxi.API.Controllers
             return Ok(await tripService.AddNewTripAsync(request));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllTrips([FromQuery] int? tripId)
+        [HttpGet("all/{userId}")]
+        public async Task<IActionResult> GetAllTrips(string userId)
         {
-            var trips = await tripService.GetAllTripsAsync(tripId);
+            var clientId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var trips = await tripService.GetAllTripsAsync(userId);
 
             if (!trips.Any())
             {

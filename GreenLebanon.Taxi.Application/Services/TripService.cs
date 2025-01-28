@@ -2,13 +2,12 @@
 using GreenLebanon.Taxi.ApplicationCore.Repositories;
 using GreenLebanon.Taxi.Shared.Requests;
 
-
 namespace GreenLebanon.Taxi.Application.Services
 {
     public class TripService(ITripRepository tripRepository, IDriverRepository driverRepository)
     {
         private readonly ITripRepository tripRepository = tripRepository;
-        
+
         private readonly IDriverRepository driverRepository = driverRepository;
 
         public async Task<int> AddNewTripAsync(AddTripRequest request)
@@ -32,9 +31,18 @@ namespace GreenLebanon.Taxi.Application.Services
             });
         }
 
-        public async Task<IQueryable<Trip>> GetAllTripsAsync(int? tripId = null)
+        public async Task<IEnumerable<TripForView>> GetAllTripsAsync(string userId)
         {
-            return await tripRepository.GetAllTripsAsync(tripId);
+            return (await tripRepository.GetAllTripsAsync(userId)).Select(x => new TripForView()
+            {
+                Id = x.Id,
+                ClientName = x.Client.FirstName + " " + x.Client.LastName,
+                Destination = x.Destination,
+                Region = x.Region,
+                StartingPoint = x.StartingPoint,
+                Status = x.Status.ToString(),
+                Timing = x.Timing
+            });
         }
     }
 }

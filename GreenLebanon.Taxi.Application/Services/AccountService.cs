@@ -53,9 +53,10 @@ namespace GreenLebanon.Taxi.Application.Services
             if (result.Succeeded)
             {
                 var appUser = this.userManager.Users.FirstOrDefault(x => x.UserName.ToLower() == model.Username.ToLower());
-                var token = await this.GenerateJwtToken(appUser);
-                var identityUser = await userManager.FindByNameAsync(model.Username);
-                var roles = await this.userManager.GetRolesAsync(identityUser);
+
+                var roles = await this.userManager.GetRolesAsync(appUser);
+
+                var token = GenerateJwtToken(appUser, roles[0]);
 
                 return new UserLoginResponse() { Roles = roles.ToList(), Token = token.ToString() };
             }
@@ -94,24 +95,34 @@ namespace GreenLebanon.Taxi.Application.Services
             return userRoles;
         }
 
-        private async Task<object> GenerateJwtToken(ApplicationUser user)
+        private string GenerateJwtToken(ApplicationUser user, string userRole)
         {
-            var userClaims = await this.userManager.GetClaimsAsync(user);
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
-            userClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("JwtIssuerOptions:SecretKey").Value));
+            var userClaims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.FirstName),
+                new Claim(ClaimTypes.Surname, user.LastName),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, userRole)
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtIssuerOptions:SecretKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddMinutes(Convert.ToDouble(configuration.GetSection("JwtIssuerOptions:Expires").Value));
+            var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(configuration["JwtIssuerOptions:Expires"]));
+            var iss = configuration["JwtIssuerOptions:Issuer"];
+            var aud = configuration["JwtIssuerOptions:Audience"];
             var token = new JwtSecurityToken(
-                configuration.GetSection("JwtIssuerOptions:Issuer").Value,
-                configuration.GetSection("JwtIssuerOptions:Issuer").Value,
+                iss,
+                aud,
                 userClaims,
                 expires: expires,
                 signingCredentials: creds
             );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            string result = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return result;
         }
     }
 }
