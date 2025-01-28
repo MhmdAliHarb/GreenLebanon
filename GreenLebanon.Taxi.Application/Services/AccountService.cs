@@ -53,9 +53,10 @@ namespace GreenLebanon.Taxi.Application.Services
             if (result.Succeeded)
             {
                 var appUser = this.userManager.Users.FirstOrDefault(x => x.UserName.ToLower() == model.Username.ToLower());
-                var token = await GenerateJwtToken(appUser);
-                var identityUser = await userManager.FindByNameAsync(model.Username);
-                var roles = await this.userManager.GetRolesAsync(identityUser);
+
+                var roles = await this.userManager.GetRolesAsync(appUser);
+
+                var token = GenerateJwtToken(appUser, roles[0]);
 
                 return new UserLoginResponse() { Roles = roles.ToList(), Token = token.ToString() };
             }
@@ -94,14 +95,18 @@ namespace GreenLebanon.Taxi.Application.Services
             return userRoles;
         }
 
-        private async Task<object> GenerateJwtToken(ApplicationUser user)
+        private string GenerateJwtToken(ApplicationUser user, string userRole)
         {
-             var userClaims = new List<Claim>
+            var userClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.FirstName),
+                new Claim(ClaimTypes.Surname, user.LastName),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString())
+                new Claim(ClaimTypes.Role, userRole)
             };
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtIssuerOptions:SecretKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(configuration["JwtIssuerOptions:Expires"]));
@@ -115,7 +120,9 @@ namespace GreenLebanon.Taxi.Application.Services
                 signingCredentials: creds
             );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            string result = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return result;
         }
     }
 }

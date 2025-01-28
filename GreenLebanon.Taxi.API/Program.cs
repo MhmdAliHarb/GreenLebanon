@@ -39,7 +39,6 @@ namespace GreenLebanon.Taxi.API
                 options.JsonSerializerOptions.WriteIndented = true;
             });
 
-
             builder.Configuration.AddJsonFile("appsettings.json", true, true);
 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
@@ -73,24 +72,22 @@ namespace GreenLebanon.Taxi.API
             });
             builder.Services.AddEndpointsApiExplorer();
 
-            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtIssuerOptions:SecretKey"]));
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; // Add this line to enable challenge handling
             })
             .AddJwtBearer(configureOptions =>
             {
                 configureOptions.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true, // Validate the issuer (must match the value in the token)
-                    ValidateAudience = true, // Validate the audience (must match the value in the token)
-                    ValidateLifetime = true, // Ensure the token is not expired
-                    ValidateIssuerSigningKey = true, // Ensure the signing key is valid
-                    ValidIssuer = builder.Configuration["JwtIssuerOptions:Issuer"], // Retrieve the issuer from the config
-                    ValidAudience = builder.Configuration["JwtIssuerOptions:Audience"], // Retrieve the audience from the config
-                    IssuerSigningKey = signingKey, // The signing key used for validation (matches the one used to sign the token)
-                    ClockSkew = TimeSpan.Zero // Optional: adjust if you need a grace period for token expiration
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["JwtIssuerOptions:Issuer"],
+                    ValidAudience = builder.Configuration["JwtIssuerOptions:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtIssuerOptions:SecretKey"])),
+                    ClockSkew = TimeSpan.Zero
                 };
             });
 

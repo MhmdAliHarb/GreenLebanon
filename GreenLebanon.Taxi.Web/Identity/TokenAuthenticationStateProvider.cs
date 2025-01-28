@@ -1,7 +1,9 @@
 ﻿using Blazored.LocalStorage;
 using GreenLebanon.Taxi.Shared.Requests;
+using GreenLebanon.Taxi.Web.Models;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Security.Claims;
@@ -34,7 +36,7 @@ namespace GreenLebanon.Taxi.Web.Identity
 
             var expClaim = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type == "exp")?.Value;
 
-            if (expClaim != null && DateTime.UtcNow > DateTimeOffset.FromUnixTimeSeconds(long.Parse(expClaim)).UtcDateTime)
+            if (jwtSecurityToken.ValidTo < DateTime.UtcNow)
             {
                 throw new UnauthorizedAccessException();
             }
@@ -45,13 +47,16 @@ namespace GreenLebanon.Taxi.Web.Identity
 
             return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(new[]
             {
+                new Claim(ClaimTypes.NameIdentifier, jsonResponse.Email),
                 new Claim(ClaimTypes.Name, jsonResponse.FirstName),
                 new Claim(ClaimTypes.Surname, jsonResponse.LastName),
                 new Claim(ClaimTypes.Email, jsonResponse.Email),
-                new Claim(ClaimTypes.Role, jsonResponse.Role)
-            }, "jwt")));
-        }
+                new Claim(ClaimTypes.Role, jsonResponse.Role),
+                new Claim(JwtRegisteredClaimNames.Sub, jsonResponse.UserId),
 
+            })));
+        }
+    
         private async Task<ApplicationUserForView> GetUserInformation(string userId, string token)
         {
             // Add the JWT token to the Authorization header

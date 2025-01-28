@@ -15,7 +15,6 @@ namespace GreenLebanon.Taxi.API.Controllers
         private readonly UserManager<ApplicationUser> userManager = userManager;
 
         [HttpGet("{userId}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetUser(string userId)
         {
             var user = await userManager.FindByIdAsync(userId);

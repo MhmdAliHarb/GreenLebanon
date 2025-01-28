@@ -3,9 +3,10 @@ using GreenLebanon.Taxi.Application.Services;
 using GreenLebanon.Taxi.Shared.Requests;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 namespace GreenLebanon.Taxi.API.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/[controller]")]
     public class TripsController(TripService tripService) : Controller
