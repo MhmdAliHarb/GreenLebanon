@@ -30,6 +30,8 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
 
                     await localStorageService.SetItemAsync("AuthToken", token.Token);
 
+                    await localStorageService.SetItemAsync("UserRole", token.Roles[0]);
+
                     return new AuthResult { Succeeded = true };
                 }
 

@@ -20,7 +20,7 @@ namespace GreenLebanon.Taxi.Web
 
             builder.Services.AddScoped(sp => new HttpClient()
             {
-                BaseAddress = new Uri("https://localhost:44383")
+                BaseAddress = new Uri("https://localhost:7241/")
             });
 
             builder.Services.AddScoped<IAuthenticationGateway, AuthenticationGateway>();

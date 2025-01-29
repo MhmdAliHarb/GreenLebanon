@@ -20,4 +20,5 @@ namespace GreenLebanon.Taxi.Shared.Requests
 
         public string ClientId { get; set; }
     }
+   
 }

@@ -19,8 +19,8 @@
             <EditForm Model="Model" OnSubmit="Submit">
                 <DataAnnotationsValidator />
                 <div class="form-floating mb-4">
-                    <InputText @bind-Value="Model.Username" type="text" class="form-control rounded-2 border-0" id="email" placeholder="" />
-                    <label for="email"> Email</label>
+                    <InputText @bind-Value="Model.Username" type="text" class="form-control rounded-2 border-0" id="username" placeholder="" />
+                    <label for="username"> Username</label>
                     <ValidationMessage For="() => Model.Username" />
                 </div>
                 <div class="form-floating mb-4">

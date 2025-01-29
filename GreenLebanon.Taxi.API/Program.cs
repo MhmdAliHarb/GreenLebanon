@@ -106,6 +106,7 @@ namespace GreenLebanon.Taxi.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
             app.UseRouting();
             app.UseAuthentication(); // If you're using authentication
             app.UseAuthorization();  // If you're using authorization

@@ -1,6 +1,6 @@
 ﻿@page "/all-trips"
 @inject ITripGateway gateway
-<h3>Tiplist</h3>
+
 <div class="container mt-3 vh-75">
     <div class="card shadow-lg">
         <div class="card-header bg-special text-center text-white">
@@ -23,7 +23,6 @@
                             <th>From</th>
                             <th>To</th>
                             <th>Time</th>
-                            <th>Driver Name</th>
                             <th> Client Name</th>
                             <th> Status</th>
                         </tr>
@@ -35,8 +34,7 @@
                                 <td>@trip.StartingPoint</td>
                                 <td>@trip.Destination</td>
                                 <td>@trip.Timing</td>
-                                <td>@trip.Driver</td>
-                                <td>@trip.Client</td>
+                                <td>@trip.ClientName</td>
                                 <td> @trip.Status</td>
                             </tr>
                         }
@@ -61,12 +59,12 @@
     {
         trips = await LoadTripsAsync();
     }
-    private async Task<List<Trip>> LoadTripsAsync()
+    private async Task<List<TripForView>> LoadTripsAsync()
     {
 
-        return trips = new List<Trip>
+        return trips = new List<TripForView>
         {
-            new Trip {StartingPoint="ha", Destination="ne" , Status = Status.Done}
+            new TripForView {StartingPoint="ha", Destination="ne" }
         };
     }
 }

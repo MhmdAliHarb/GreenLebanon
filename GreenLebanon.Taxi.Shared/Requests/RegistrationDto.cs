@@ -30,7 +30,7 @@
         [DataType(DataType.PhoneNumber)]
         public string MobileNumber { get; set; }
 
-        public UserType UserType { get; set; }
+        public UserType UserType { get; set; } = UserType.Client;
 
         public string Username { get; set; }
     }

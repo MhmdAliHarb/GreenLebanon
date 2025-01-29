@@ -99,11 +99,10 @@ namespace GreenLebanon.Taxi.Application.Services
         {
             var userClaims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Email),
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.FirstName),
-                new Claim(ClaimTypes.Surname, user.LastName),
-                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Name, user.FirstName),
+                new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(ClaimTypes.Role, userRole)
             };
 
