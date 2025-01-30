@@ -10,7 +10,7 @@ namespace GreenLebanon.Taxi.Web.Infrastructure.Gateways
     public interface IClientGateway
     {
         Task<int> AddNewClientAsync(AddClientRequest request, CancellationToken cancellationToken);
-        Task<AddClientRequest> GetClientAsync(int Id);
+        Task<AddClientRequest> GetClientAsync(string id);
         Task<List<AddClientRequest>> GetAllClientsAsync();
     }
 }

@@ -11,17 +11,16 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
         private readonly HttpClient httpClient;
         private readonly ILocalStorageService localStorageService;
 
-        private string token = string.Empty;
-
         public ClientGateway( HttpClient client, ILocalStorageService localStorageService )
         {
             this.httpClient = client;
 
             this.localStorageService = localStorageService;
-
-            token = localStorageService.GetItemAsync<string>("authToken").Result ?? string.Empty;
         }
-
+        private async Task<string> GetAccessTokenAsync()
+        {
+            return await localStorageService.GetItemAsync<string>("AuthToken");
+        }
         public async Task<int> AddNewClientAsync(AddClientRequest request, CancellationToken cancellationToken)
         {
             var result = await httpClient.PostAsJsonAsync<AddClientRequest>("api/Clients", request, cancellationToken);
@@ -31,6 +30,7 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
 
         public async Task<List<AddClientRequest>> GetAllClientsAsync()
         {
+            string token = await GetAccessTokenAsync();
             if ( !string.IsNullOrEmpty(token) )
             {
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -43,13 +43,15 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
             throw new Exception("Error in retriving Clients");
         }
 
-        public async Task<AddClientRequest> GetClientAsync( int Id )
+        public async Task<AddClientRequest> GetClientAsync( string id )
         {
+            string token = await GetAccessTokenAsync();
+
             if ( !string.IsNullOrEmpty(token) )
             {
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
-            var result = await httpClient.GetAsync($"api/{Id}");
+            var result = await httpClient.GetAsync($"api/Clients/{id}");
             if ( result.IsSuccessStatusCode )
             {
                 return await result.Content.ReadFromJsonAsync<AddClientRequest>();

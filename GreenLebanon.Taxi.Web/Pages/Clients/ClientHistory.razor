@@ -1,41 +1,48 @@
 ﻿@page "/client-history"
 
+@inject ITripGateway TripGateway
+@inject AuthenticationStateProvider AuthenticationState
+
 <div class="container mt-3 vh-75">
     <div class="card shadow-lg">
         <div class="card-header bg-special text-center text-white">
             <h4 class="mb-0">Your History</h4>
         </div>
         <div class="card-body">
-            @if ( trips == null ) {
+            @if ( trips == null )
+            {
                 <div class="text-center">
                     <div class="spinner-border text-success" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
             }
-            else if ( trips.Any() ) {
+            else if ( trips.Any() )
+            {
                 <table class="table table-striped table-hover">
                     <thead class="table-sm">
                         <tr>
                             <th>From</th>
                             <th>To</th>
-                            <th>Time</th>
-                            <th>Driver Name</th>
+                            <th>Region</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ( var trip in trips ) {
+                        @foreach ( var trip in trips )
+                        {
                             <tr>
-                                <td>@trip.From</td>
-                                <td>@trip.To</td>
-                                <td>@trip.Time.ToString("f")</td>
-                                <td>@trip.DriverName</td>
+                                <td>@trip.StartingPoint</td>
+                                <td>@trip.Destination</td>
+                                <td>@trip.Region</td>
+                                <td>@trip.Status</td>
                             </tr>
                         }
                     </tbody>
                 </table>
             }
-            else {
+            else
+            {
                 <div class="alert alert-warning text-center" role="alert">
                     No trips available.
                 </div>
@@ -48,6 +55,7 @@
     .container {
         max-width: 900px;
     }
+
     .card {
         border-radius: 10px;
         overflow: hidden;
@@ -64,31 +72,20 @@
 </style>
 
 @code {
-    private List<Trip> trips;
+    private List<TripForView> trips = [];
 
-    protected override async Task OnInitializedAsync() {
-        trips = await GetTripsAsync();
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationState.GetAuthenticationStateAsync();
+        string clientId = authState.User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+        var response = await GetTripsAsync(clientId);
+        trips.AddRange(response);
     }
 
-    private async Task<List<Trip>> GetTripsAsync() {
+    private async Task<List<TripForView>> GetTripsAsync( string clientId )
+    {
         // Simulate fetching trips from an API or database
-        await Task.Delay(1000); // Simulated delay
-
-        return new List<Trip>
-            {
-            new Trip { From = "Location A", To = "Location B", Time = DateTime.Now, DriverName = "John Doe" },
-            new Trip { From = "Location C", To = "Location D", Time = DateTime.Now.AddHours(-40), DriverName = "Hussein Zaayter" },
-             new Trip { From = "Location E", To = "Location F", Time = DateTime.Now.AddHours(-10), DriverName = "Ali Mtayrek" },
-              new Trip { From = "Location G", To = "Location H", Time = DateTime.Now.AddHours(25), DriverName = "Youssef Soufan" },
-             new Trip { From = "Location I", To = "Location J", Time = DateTime.Now.AddHours(1), DriverName = "Bashar Al Asad" }
-        };
-    }
-
-    public class Trip {
-        public string From { get; set; }
-        public string To { get; set; }
-        public DateTime Time { get; set; }
-        public string DriverName { get; set; }
+        return await TripGateway.GetAllTripsAsync(clientId);
     }
 }
 

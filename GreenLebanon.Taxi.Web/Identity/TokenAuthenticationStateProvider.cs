@@ -10,7 +10,8 @@ using System.Security.Claims;
 
 namespace GreenLebanon.Taxi.Web.Identity
 {
-    public class TokenAuthenticationStateProvider : AuthenticationStateProvider
+    public class 
+        TokenAuthenticationStateProvider : AuthenticationStateProvider
     {
         private readonly ILocalStorageService _localStorageService;
         private readonly HttpClient _httpClient;
@@ -36,8 +37,9 @@ namespace GreenLebanon.Taxi.Web.Identity
 
             var expClaim = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type == "exp")?.Value;
 
-            if (jwtSecurityToken.ValidTo < DateTime.UtcNow)
+            if (jwtSecurityToken.ValidTo < DateTime.UtcNow  )
             {
+                Console.WriteLine("Token expired. Removing and returning anonymous.");
                 throw new UnauthorizedAccessException();
             }
 

@@ -44,10 +44,10 @@ namespace GreenLebanon.Taxi.Web.Application.Gateways
 
         public async Task<List<TripForView>> GetAllTripsAsync(string userId)
         {
-            var result = await _httpClient.GetAsync($"/api/all/Trips/{userId}");
-
-            throw new NotImplementedException();
-
+            var result = await _httpClient.GetAsync($"/api/Trips/all/{userId}");
+            result.EnsureSuccessStatusCode();
+            List<TripForView> responseContent = await result.Content.ReadFromJsonAsync<List<TripForView>>();
+            return responseContent;
         }
     }
 }

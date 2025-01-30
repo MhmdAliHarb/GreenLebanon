@@ -29,6 +29,8 @@ namespace GreenLebanon.Taxi.Infrastructure.Data
                 .HasForeignKey(t => t.ClientId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Trip>().Property(x => x.DriverId).IsRequired(false);
+            
             modelBuilder.Entity<Trip>()
                 .HasOne(d => d.Driver)
                 .WithMany()

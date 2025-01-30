@@ -61,6 +61,8 @@
         request.ClientId = authState.User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
 
         await TripGateway.AddNewTripAsync(request, CancellationToken.None);
+
+        Manager.NavigateTo("client-history");
     }
 
   

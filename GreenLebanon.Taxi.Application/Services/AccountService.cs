@@ -53,8 +53,10 @@ namespace GreenLebanon.Taxi.Application.Services
             if (result.Succeeded)
             {
                 var appUser = this.userManager.Users.FirstOrDefault(x => x.UserName.ToLower() == model.Username.ToLower());
-
-                var roles = await this.userManager.GetRolesAsync(appUser);
+               
+                var identityUser = await userManager.FindByNameAsync(model.Username);
+                
+                var roles = await userManager.GetRolesAsync(identityUser);
 
                 var token = GenerateJwtToken(appUser, roles[0]);
 
@@ -108,7 +110,8 @@ namespace GreenLebanon.Taxi.Application.Services
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtIssuerOptions:SecretKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(configuration["JwtIssuerOptions:Expires"]));
+           // var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(configuration["JwtIssuerOptions:Expires"]));
+            var expires = DateTime.UtcNow.AddDays(1);
             var iss = configuration["JwtIssuerOptions:Issuer"];
             var aud = configuration["JwtIssuerOptions:Audience"];
             var token = new JwtSecurityToken(

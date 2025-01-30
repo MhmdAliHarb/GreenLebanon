@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GreenLebanon.Taxi.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class initialmigration : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -162,6 +162,23 @@ namespace GreenLebanon.Taxi.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Drivers",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Region = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Drivers", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_Drivers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Trips",
                 columns: table => new
                 {
@@ -171,17 +188,24 @@ namespace GreenLebanon.Taxi.Infrastructure.Migrations
                     Destination = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Region = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Timing = table.Column<TimeOnly>(type: "time", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    DriverId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ClientId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Trips", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Trips_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Trips_AspNetUsers_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Trips_Drivers_DriverId",
+                        column: x => x.DriverId,
+                        principalTable: "Drivers",
+                        principalColumn: "UserId");
                 });
 
             migrationBuilder.InsertData(
@@ -189,9 +213,9 @@ namespace GreenLebanon.Taxi.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "572a1d83-2815-4eec-979b-adf231a4f3a5", null, "Admin", "ADMIN" },
-                    { "5f3df691-8765-41d3-846f-0a1d8b175539", null, "Client", "CLIENT" },
-                    { "9d82058b-b44f-4801-b104-2bb162128144", null, "Driver", "DRIVER" }
+                    { "50188949-93e8-4b10-b135-d9d154b5a762", null, "Client", "CLIENT" },
+                    { "86228ec7-d00f-4cf4-bf9d-c3737e663f23", null, "Driver", "DRIVER" },
+                    { "9ba8e4c9-b5a2-4a50-ac1c-3f14ee7fc37b", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -234,9 +258,14 @@ namespace GreenLebanon.Taxi.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Trips_UserId",
+                name: "IX_Trips_ClientId",
                 table: "Trips",
-                column: "UserId");
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trips_DriverId",
+                table: "Trips",
+                column: "DriverId");
         }
 
         /// <inheritdoc />
@@ -262,6 +291,9 @@ namespace GreenLebanon.Taxi.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Drivers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

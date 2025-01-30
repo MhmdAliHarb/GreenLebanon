@@ -1,8 +1,8 @@
-﻿@page "/profile/{ClientId:int}"
-@inject IClientGateway  ClientGateway
+﻿@page "/profile"
 @using GreenLebanon.Taxi.Web.Identity
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IClientGateway  ClientGateway
 @inject NavigationManager Navigation
-@inject IAccountManagement AccountManagement 
 <div class="container mt-3 vh-75">
     <div class="card shadow-lg">
         <div class="card-header bg-special text-center text-white d-flex justify-content-between align-items-center">
@@ -57,20 +57,21 @@
 
 @code{
     private AddClientRequest Model;
-    private string _errorMessage;
-    [Parameter]
-    public int ClientId  { get; set; }
 
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            Model = await ClientGateway.GetClientAsync(ClientId);
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+            var clientId = authState.User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
+
+            Model = await ClientGateway.GetClientAsync(clientId);
         }
         catch ( Exception ex )
         {
-            _errorMessage = ex.Message;
+            //_errorMessage = ex.Message;
         }
     }
     private void Logout() {

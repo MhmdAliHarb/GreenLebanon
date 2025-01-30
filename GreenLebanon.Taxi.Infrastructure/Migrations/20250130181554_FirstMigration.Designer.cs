@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GreenLebanon.Taxi.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250113211500_adddriverstable")]
-    partial class adddriverstable
+    [Migration("20250130181554_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,8 +56,10 @@ namespace GreenLebanon.Taxi.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DriverId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Region")
                         .IsRequired()
@@ -111,19 +113,19 @@ namespace GreenLebanon.Taxi.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6ff6abb2-af64-42d8-b3ef-a3012b86321d",
+                            Id = "9ba8e4c9-b5a2-4a50-ac1c-3f14ee7fc37b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c58f608b-a50e-4cd7-a314-4f076e4e5b8b",
+                            Id = "50188949-93e8-4b10-b135-d9d154b5a762",
                             Name = "Client",
                             NormalizedName = "CLIENT"
                         },
                         new
                         {
-                            Id = "0e2c0bcc-21e3-4874-8a17-d054bf9d733a",
+                            Id = "86228ec7-d00f-4cf4-bf9d-c3737e663f23",
                             Name = "Driver",
                             NormalizedName = "DRIVER"
                         });
@@ -346,8 +348,7 @@ namespace GreenLebanon.Taxi.Infrastructure.Migrations
                     b.HasOne("GreenLebanon.Taxi.ApplicationCore.Entities.Driver", "Driver")
                         .WithMany()
                         .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Client");
 

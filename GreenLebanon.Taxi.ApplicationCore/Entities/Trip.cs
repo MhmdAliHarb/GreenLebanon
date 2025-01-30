@@ -20,7 +20,7 @@
         public ApplicationUser Client { get; set; }
 
         public Status Status { get; set; }
-        public float Price { get; set; }
+        public decimal Price { get; set; }
     }
 
     public enum Status
